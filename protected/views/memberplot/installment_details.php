@@ -1,3 +1,26 @@
+<style>
+table {
+    border-collapse: collapse;
+}
+
+td {
+    position: relative;
+    padding: 5px 10px;
+	
+}
+
+tr.strikeout td:before {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 0;
+	color:#F00;
+    border-bottom: 1px solid #111;
+    width: 100%;
+}
+
+</style>
+
 <?php  $create=0;?>
 <div class="shadow">
    <h3>Installment Details</h3>
@@ -144,8 +167,11 @@ $i++;
 	if($pay['ref']==0){
 		if($pay['paidamount']==''){$pay['paidamount']=0;}
 if($pay['dueamount']==''){$pay['dueamount']=0;}  
-echo '<tr>
-  <td rowspan="'.$co1.'">'.$pay['lab']. '</td>
+
+echo '<tr>';
+
+
+  echo'<td rowspan="'.$co1.'">'.$pay['lab']. '</td>
      <td rowspan="'.$co1.'">'.$pay['due_date'].'</td>
      <td>'.$pay['paid_date'].'</td>
      <td rowspan="'.$co1.'" style="text-align:right">'.number_format($pay['dueamount']).'</td>
@@ -299,7 +325,7 @@ echo '<td>'.$pay1['paid_date'].'</td>
 <td style="text-align:right"><b>'.number_format($paid).'</b></td>
 <td align="right"></td>
 <td></td>
-<td align="right"><b>'.number_format($duesurcharge).' (<b style="color:red;">'.number_format($gtotalsur,'0').'</b>)</b></td>
+<td align="right"><b> (<b style="color:red;">'.number_format($gtotalsur,'0').'</b>)</b></td>
 <td align="right"><b>'.number_format($paidsurcharge).'</b></td>
 <td></td>
 <td></td>
@@ -573,7 +599,7 @@ echo '<tr>
 		echo '</b>';
 		}else{echo $pay['detail'];}
 	echo ' </td>
-	 <td align="right">'.$pay['surcharge'];?>
+	 <td align="right">';?>
      <?php 
 	 
 	 if($pay['dueamount'] > 1 and $pay['surcharge_re']==00){
@@ -705,7 +731,7 @@ echo '<td>'.$pay1['paid_date'].'</td>
 <td style="text-align:right"><b>'.number_format($paid).'</b></td>
 <td align="right"></td>
 <td></td>
-<td align="right"><b>'.number_format($duesurcharge).' (<b style="color:red;">'.number_format($gtotalsur,'0').'</b>)</b></td>
+<td align="right"><b> (<b style="color:red;">'.number_format($gtotalsur,'0').'</b>)</b></td>
 <td align="right"><b>'.number_format($paidsurcharge).'</b></td>
 <td></td>
 </tr>';

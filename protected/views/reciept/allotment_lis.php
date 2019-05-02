@@ -50,7 +50,15 @@ $address= $_SERVER['HTTP_HOST'].Yii::app()->request->baseUrl;
 });
 </script>
 
+<?php
+$sc_id=Yii::app()->session['user_array']['sc_id'];
+$id=Yii::app()->session['user_array']['id'];
+$connection = Yii::app()->db;
 
+$qury1="SELECT p.project_id,receipt.*,m.*,receipt.id as rid FROM receipt left join members m on receipt.mem_id=m.id Inner join rpt_print on rpt_print.rid=receipt.id left join plots p on rpt_print.msid=p.id where receipt.sc_id='0' group by rpt_print.rid";
+$res=$connection->CreateCommand($qury1)->queryAll();
+$tusup=Count($res);
+?>
 <div class="shadow">
 <a href="reciept_lis" class="btn" style="float:right;">Reset Filters</a> 
 
@@ -62,7 +70,12 @@ $address= $_SERVER['HTTP_HOST'].Yii::app()->request->baseUrl;
    <?php if(Yii::app()->session['user_array']['per19']==1){?>
 <a href="monthly_report" class="btn" style="float:right;">Monthly Report</a> 
   <?php }?>
-  
+ <?php if((Yii::app()->session['user_array']['per18']==1)||(Yii::app()->session['user_array']['per19']==1)){?>
+        <a href="bouncerec_list" class="btn" style="float:right; ">Bounce Receipt</a>
+    <?php }?>
+  <?php if(Yii::app()->session['user_array']['per1']==1 ){?>
+        <a href="unsupervised_list" class="btn" style="float:right; ">Unsupervised Receipts<span style="color:#F00; font-weight:bold;"> <?php echo'('.$tusup.')';?> </span></a>
+    <?php }?>
   <h3>Instrument List</h3>
    
 
@@ -250,6 +263,7 @@ foreach($result_bank as $ch){
     
     <th width="10%">Verification</th>
     <th width="8%">Total Receipt</th>
+     <th width="5%">Action</th>
       </thead>
   <tbody id="error-div">
   </tbody>

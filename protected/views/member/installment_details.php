@@ -173,7 +173,7 @@ echo '<tr>
 		echo '</b>';
 		}else{echo $pay['detail'];}
 	echo ' </td>
-	 <td align="right">'.$pay['surcharge'];?>
+	 <td align="right">';?>
      <?php 
 	 if($pay['dueamount'] > 1 and $pay['surcharge_re']==0){
 	  if($pay['paid_date']!==''){$curdate=$pay['paid_date'];}else{$curdate=date('d-m-Y');} 
@@ -270,7 +270,7 @@ $gtotalsur=$gtotalsur+$totalduesur;
 <td style="text-align:right"><b>'.number_format($paid).'</b></td>
 <td align="right"></td>
 <td></td>
-<td align="right"><b>'.number_format($duesurcharge).' (<b style="color:red;">'.number_format($gtotalsur,'0').'</b>)</b></td>
+<td align="right"><b> (<b style="color:red;">'.number_format($gtotalsur,'0').'</b>)</b></td>
 <td align="right"><b>'.number_format($paidsurcharge).'</b></td>
 <td></td>
 <td></td>

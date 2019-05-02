@@ -303,7 +303,7 @@ echo '<td>'.$pay1['paid_date'].'</td>
 <td style="text-align:right"><b>'.number_format($paid).'</b></td>
 <td align="right"></td>
 <td></td>
-<td align="right"><b>'.number_format($duesurcharge).' (<b style="color:red;">'.number_format($gtotalsur,'0').'</b>)</b></td>
+<td align="right"><b> (<b style="color:red;">'.number_format($gtotalsur,'0').'</b>)</b></td>
 <td align="right"><b>'.number_format($paidsurcharge).'</b></td>
 <td></td>
 <td></td>
@@ -589,7 +589,7 @@ echo '<tr>
 		echo '</b>';
 		}else{echo $pay['detail'];}
 	echo ' </td>
-	 <td align="right">'.$pay['surcharge'];?>
+	 <td align="right">';?>
      <?php 
 	 
 	 if($pay['dueamount'] > 1 and $pay['surcharge_re']==00){
@@ -663,7 +663,7 @@ echo '<td>'.$pay1['paid_date'].'</td>
 		echo '</b>';
 		}else{echo $pay1['detail'];}
 	 echo '</td>';
-	 echo '<td align="right">'.$pay1['surcharge'];
+	 echo '<td align="right">';
 	  
  if(($lastdue) > 0 and $pay1['surcharge_re']==0 and $pay['paid_date']!==$pay1['paid_date']){
 	  if($pay1['paid_date']!==''){$curdate=$pay1['paid_date'];}else{$curdate=date('d-m-Y');} 
@@ -721,7 +721,7 @@ echo '<td>'.$pay1['paid_date'].'</td>
 <td style="text-align:right"><b>'.number_format($paid).'</b></td>
 <td align="right"></td>
 <td></td>
-<td align="right"><b>'.number_format($duesurcharge).' (<b style="color:red;">'.number_format($gtotalsur,'0').'</b>)</b></td>
+<td align="right"><b> (<b style="color:red;">'.number_format($gtotalsur,'0').'</b>)</b></td>
 <td align="right"><b>'.number_format($paidsurcharge).'</b></td>
 <td></td>
 </tr>';

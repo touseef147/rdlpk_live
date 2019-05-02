@@ -6,7 +6,7 @@ $address= $_SERVER['HTTP_HOST'].Yii::app()->request->baseUrl;;
 	  var project_name=$("#project_name").val();
 	   var stat=2;	
  $.ajax({
-	     url:"https://<?php echo $address ?>/index.php/memberplotsales/searchreq1",
+	     url:"http://<?php echo $address ?>/index.php/memberplotsales/searchreq1",
                   type:"POST",
                  data:"actionfunction=showData&page=1&project_name="+project_name+"&stat="+stat,
         cache: false,
@@ -20,7 +20,7 @@ $address= $_SERVER['HTTP_HOST'].Yii::app()->request->baseUrl;;
 	   $pageind = $page.indexOf('page=');
 	   $page = $page.substring(($pageind+5));
 	   $.ajax({
-	     url:"https://<?php echo $address ?>/index.php/memberplotsales/searchreq1",
+	     url:"http://<?php echo $address ?>/index.php/memberplotsales/searchreq1",
                   type:"POST",
                   data:$("#user_login_form").serialize()+"&&page="+$page,
 				//  data:"actionfunction=showData&page="+$page,
@@ -140,7 +140,7 @@ $pages_data = Yii::app()->session['pages_array'];
 
 												// alert("we are here");
 
-                                         location.href = "https://rdlpk.com/index.php/user/dashboard";
+                                         location.href = "http://rdlpk.com/index.php/user/dashboard";
 
                                       }
 

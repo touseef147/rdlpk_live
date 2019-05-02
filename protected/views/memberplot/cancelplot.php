@@ -137,7 +137,7 @@ WHERE mp.id =".$_REQUEST['msid']." ";
              <?php 
 			 $connection = Yii::app()->db;
  $mshistory  = "SELECT sh.user_id,u.username,sh.status,sh.detail,sh.status_date,mp.plotno,mp.plot_id,mp.app_no,sh.type,p.plot_detail_address,p.plot_size,p.image
-FROM status_history sh
+FROM status_history123 sh
 left join user u on sh.user_id=u.id
 left join plots p on sh.plot_id=p.id
 left join memberplot mp on p.id=mp.plot_id

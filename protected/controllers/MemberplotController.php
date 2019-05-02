@@ -5962,17 +5962,15 @@ where  $where  and p.type='file'";
 		//for Pagination end 		
 
 	$connection = Yii::app()->db; 
-  echo  $sql_member = "SELECT cp.status as cpstatus,mp.app_no,mp.member_id,mp.mstatus as stst,mp.plotno,mp.create_date,p.id,p.type,p.project_id,m.name,mp.plotno,p.com_res,m.image,m.sodowo,m.cnic,p.plot_detail_address,mp.plot_id,mp.status,p.plot_size,p.project_id,p.street_id,mp.id as msid,s.street,s.id,j.id,j.project_name,sec.sector_name,size_cat.size  FROM memberplot mp
+  echo  $sql_member = "SELECT mp.app_no,mp.member_id,mp.mstatus as stst,mp.plotno,mp.create_date,p.id,p.type,p.project_id,m.name,mp.plotno,p.com_res,m.image,m.sodowo,m.cnic,p.plot_detail_address,mp.plot_id,mp.status,p.plot_size,p.project_id,p.street_id,mp.id as msid,s.street,s.id,j.id,j.project_name,sec.sector_name,size_cat.size  FROM memberplot mp
 left join members m on mp.member_id=m.id
 
 left join plots p on mp.plot_id=p.id
 left join streets s on p.street_id=s.id
 left join sectors sec on sec.id=p.sector
 left join size_cat size_cat on size_cat.id=p.size2
-left join cancelplot cp on cp.plot_id=p.id
 
 left join projects j on p.project_id=j.id
-
 where $where and p.type='file' ORDER BY mp.plotno ASC limit $start,$limit"; 
 	
 		$result_members = $connection->createCommand($sql_member)->query();

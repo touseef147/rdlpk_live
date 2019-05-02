@@ -167,6 +167,7 @@ $pages_data = Yii::app()->session['pages_array'];
           <th width="4%">Net Balance</th>
        
            <th width="4%">Balance %</th>
+           <th width="4%">Status </th>
         </tr>
       </thead>
       <tbody id="error-div">

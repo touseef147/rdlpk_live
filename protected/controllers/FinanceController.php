@@ -4677,7 +4677,7 @@ left join projects j on s.project_id=j.id where mp.id=".$_REQUEST['id'];
 		//$memberid=$_POST['member_id'];
 		$plotid=$_POST['plot_id'];
 		if($_POST['statusapp']=='Rejected')
-	/*	{
+		{
 		 $sqldel="Delete from  memberplot where plot_id='".$plotid."'";
         $command = $connection -> createCommand($sqldel);
         $command -> execute(); 
@@ -4691,9 +4691,9 @@ left join projects j on s.project_id=j.id where mp.id=".$_REQUEST['id'];
         $command -> execute();
 
 		$this->redirect(array("finance/alotment_lis"));
-		}*/
+		}
 		if($_POST['statusapp']=='approved')
-		{
+		{ 
 		$sql="Update memberplot SET fstatus='".$_POST['statusapp']."', fcomment='".$_POST['cmnt']."' where plot_id='".$plotid."'";	
 		//$sql="Update plots SET status='Alloted' where plot_id='".$plotid."'";	
         $command = $connection -> createCommand($sql);

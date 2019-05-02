@@ -376,7 +376,14 @@ echo '<option value="'.$row12['id'].'">'.$row12['name'].'</option>';
     <p class="">Plot Status User(PER32)</p>
  <input name="per33" type="checkbox" value="1" class="float-left2" id="per33" />
     <label for="checkbox"></label>
-    <p class="">Cancellation (PER33)</p>  
+    <p class="">Cancellation (PER33)</p> 
+     <input name="per34" type="checkbox" value="1" class="float-left2" id="per34" />
+    <label for="checkbox"></label>
+    <p class="">Audit (PER34)</p> 
+      <input name="per35" type="checkbox" value="1" class="float-left2" id="per35" />
+    <label for="checkbox"></label>
+    <p class="">Manage Surcharges (PER35)</p> 
+    
 <p>
     <h3>Projects Permission</h3>
 <p>

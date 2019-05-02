@@ -150,7 +150,13 @@ $paidsurcharge=$paidsurcharge+$paidsurch;
 ?>
 
  <h4 style="float:left;">Others Charges Details:</h4>
-<div style="float:right;"><a href="plotcharges?id=<?php echo $_REQUEST['id']?> && pid=<?php echo $pro;?>"><h5>Add Charges/Fee</h5></a><a href="plotsurcharge?id=<?php echo $_REQUEST['id']?> && pid=<?php echo $pro;?>"><h5>Add Surcharge</h5> </a></div>
+<div style="float:right;"><a href="plotcharges?id=<?php echo $_REQUEST['id']?> && pid=<?php echo $pro;?>"><h5>Add Charges/Fee</h5></a>
+<?php if(Yii::app()->session['user_array']['per35']=='1'){?>
+<a href="plotsurcharge?id=<?php echo $_REQUEST['id']?> &&
+ pid=<?php echo $pro;?>">
+ 
+ <h5>Add Surcharge</h5> </a><?php }?>
+</div>
 
 
 <table class="table table-striped table-new table-bordered">

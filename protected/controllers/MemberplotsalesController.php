@@ -2805,10 +2805,26 @@ left join projects j on p.project_id=j.id where p.type='plot' and mp.status='App
 	 	{
 		$where='';
 		$and=false;
-		$and = false;
+	if (!empty($_POST['project_name'])){
+				if($and==true)
+				{
+					$where.=" AND p.project_id LIKE '%".$_POST['project_name']."%'";
+				}
+				else
+				{
+					$where.="  p.project_id LIKE '%".$_POST['project_name']."%'";
+				}
+				$and=true;
+			}
 			if (!empty($_POST['name1'])){
-				$where.=" m.name LIKE '%".$_POST['name1']."%'";
+				$where.="and m.name LIKE '%".$_POST['name1']."%'";
 				$and = true;
+			}
+				 if (isset($_POST['com_res']) && $_POST['com_res']!=""){
+
+				$where.="and p.com_res LIKE '%".$_POST['com_res']."%'";
+				$and = true;
+				$com_res=$_POST['com_res'];
 			}
 			if (!empty($_POST['sodowo'])){				
 				if ($and==true)
@@ -2818,16 +2834,11 @@ left join projects j on p.project_id=j.id where p.type='plot' and mp.status='App
 				}
 				else
 				{
-
 					$where.=" m.sodowo LIKE '%".$_POST['sodowo']."%'";
-
 				}
 				$and=true;
-
 			}
-
 			if (!empty($_POST['cnic'])){
-
 				if ($and==true)
 				{
 					$where.=" and m.cnic =".$_POST['cnic']."";
@@ -2838,7 +2849,7 @@ left join projects j on p.project_id=j.id where p.type='plot' and mp.status='App
 				}
 				$and=true;
 			}
-				if (!empty($_POST['app_no'])){
+			if (!empty($_POST['app_no'])){
 
 				if ($and==true)
 				{
@@ -2868,20 +2879,19 @@ if($_POST['allotmentstatus']==2){if ($and==true)
 				{
 					$where.=" mp.status!='Approved'";
 				}}
-				
-				$and=true;
-			}
-			if (!empty($_POST['project_name'])){
-				if($and==true)
+if($_POST['allotmentstatus']==3){if ($and==true)
 				{
-					$where.=" AND p.project_id LIKE '%".$_POST['project_name']."%'";
+					$where.=" and p.status='Requested(T)'";
 				}
 				else
 				{
-					$where.="  p.project_id LIKE '%".$_POST['project_name']."%'";
-				}
+					$where.=" p.status='Requested(T)'";
+				}}
+				
 				$and=true;
 			}
+
+			
 			if (!empty($_POST['plot_detail_address'])){
 
 				if ($and==true)
@@ -2903,14 +2913,24 @@ if($_POST['allotmentstatus']==2){if ($and==true)
 				}
 				else
 				{
-					$where.="mp.plotnoLIKE '%".$_POST['plotno']."%'";
+					$where.="mp.plotno LIKE '%".$_POST['plotno']."%'";
 				}
 				$and==true;
 			}
 			if (!empty($_POST['allotmentstatus'])){
 if($_POST['allotmentstatus']==1){ $where.=" and mp.status='Approved'";}
 if($_POST['allotmentstatus']==2){ $where.=" and mp.status!='Approved' and mp.fstatus!='Approved'";}
-			}				
+        if($_POST['allotmentstatus']==4){if ($and==true)
+				{
+					$where.=" and mp.mstatus=2";
+				}
+				else
+				{
+					$where.=" mp.mstatus=0";
+				}
+				
+				}
+			}			
 	//for Pagination 
 if(isset($_POST['limit']) && $_POST['limit']!==''){$limit = $_POST['limit'];}else{
 $limit = 15;}
@@ -3462,6 +3482,8 @@ echo '</br><a target="_blank" href="payment_details?id='.$key['plot_id'].'&& pid
 		$sql_project = $sql1;
 		$sql_project = $sql_project.implode(' or',$sql2);
 		$result_projects = $connection->createCommand($sql_project)->query() or mysql_error();
+		 $sql_com_res ="SELECT DISTINCT com_res FROM plots";
+		$result_com_res = $connection->createCommand($sql_com_res)->query();
 					$error="";
 			$and = false;
 			$where='';
@@ -3616,7 +3638,7 @@ echo'  </td></tr>';
             }
 			}
 
-			$this->render('member_lis',array('members'=>$result_members,'error'=>$error,'projects'=>$result_projects));
+			$this->render('member_lis',array('members'=>$result_members,'error'=>$error,'projects'=>$result_projects,'com_res'=>$result_com_res));
 			}
 			else{$this->redirect(Yii::app()->baseUrl."/index.php/user/dashboard"); }
 
@@ -4066,6 +4088,78 @@ where $where and p.type='file'  and mp.status='Approved' ";
 
 	}
 	public function actionPayment_details()
+
+	{
+if(isset(Yii::app()->session['user_array']['username']))
+
+			{
+		$connection = Yii::app()->db;
+
+		$land  = "SELECT * FROM installpayment	where fstatus !='Cancelled' and others !='Cancelled' and plot_id='".$_REQUEST['id']."' ";
+		$land_cost = $connection->createCommand($land)->queryAll();
+		
+		   $member= "SELECT * FROM memberplot mp where plot_id='".$_REQUEST['id']."'";
+		$members = $connection->createCommand($member)->queryRow();
+			
+
+		 $sql_payment="Select * from plotpayment where plot_id='".$_REQUEST['id']."' and (mem_id='".$members['member_id']."' or pobm>0 or payment_type NOT IN ('MS Fee','Transfer Fee'))";
+
+		$result_payments = $connection->createCommand($sql_payment)->queryAll();
+
+		
+
+	   $sql_member= "SELECT mp.id,mp.plot_id,mp.plotno,mp.member_id,m.cnic,m.image,m.name FROM memberplot mp
+	   left join members m on mp.member_id=m.id
+	    where plot_id='".$_REQUEST['id']."'";
+
+		$result_members = $connection->createCommand($sql_member)->queryAll();
+		
+
+		
+
+		$sql = "SELECT pc.plot_id,pc.charges_id,c.name,c.total FROM plotcharges pc
+
+left join charges c on pc.charges_id=c.id 
+
+where plot_id='".$_REQUEST['id']."'";
+
+		$res=$connection->createCommand($sql)->queryAll();
+
+		
+
+		//$sql_charges  = "SELECT * FROM plotcharges where plot_id='".$_REQUEST['id']."'";
+
+		//$result_charges = $connection->createCommand($sql_charges)->queryAll();
+
+		
+
+		$sql_plotinfo  = "SELECT mp.mstatus as stst,p.*,proj.project_name,sec.sector_name,st.street,s.size FROM plots p
+		left join projects proj on p.project_id=proj.id
+		left join memberplot mp on mp.plot_id=p.id
+		left join sectors sec on p.sector=sec.id
+		 left join streets st on p.street_id=st.id
+		left join size_cat s on p.size2=s.id
+		 where p.id='".$_REQUEST['id']."'";
+		$result_plotinfo = $connection->createCommand($sql_plotinfo)->queryAll();
+			$connection = Yii::app()->db;
+			$sql_primeloc  = "SELECT *  FROM cat_plot
+			LEFT JOIN categories ON ( cat_plot.cat_id = categories.id )
+			WHERE cat_plot.plot_id ='".$_REQUEST['id']."'" ;
+			$result_prime = $connection->createCommand($sql_primeloc)->queryAll();
+					
+
+	
+
+		$this->render('payment_details',array('payments'=>$result_payments,'primeloc'=>$result_prime,'landcost'=>$land_cost,'info'=>$result_plotinfo,'receivable'=>$res,'members'=>$result_members));
+			}else{
+				
+					$this->redirect(array('user/dashboard'));
+
+				}
+		
+
+	}
+	public function actionPayment_details123()
 		{
 if(isset(Yii::app()->session['user_array']['username'])){	
 		$connection = Yii::app()->db;

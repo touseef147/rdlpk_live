@@ -74,63 +74,18 @@
 
 
    </div>
-
-
-
-
-
- 
-
-
-
   <form action="Update" method="post" enctype="multipart/form-data" onsubmit="return validateForm() "> 
-
-
-
   <?php	
-
-
-
-  		
-
-
-
-  
-
-
-
             $res=array();
-
-
-
             foreach($update_user as $key){
-
-
-
-			
-
-
-
 			if ($key['per1']==1){
 
-
-
 			$checked1 = "checked";
-
-
-
 			}
-
-
 
 			else
 
-
-
 			{
-
-
-
 				$checked1 = "";	
 
 
@@ -546,17 +501,32 @@
 			}
 
             if ($key['per32']==1){
-
 			$checked32 = "checked";
-
 			}
-
 			else
-
 			{
-
 				$checked32 = "";	
-
+			}
+			if ($key['per33']==1){
+			$checked33 = "checked";
+			}
+			else
+			{
+				$checked33 = "";	
+			}
+			if ($key['per34']==1){
+			$checked34 = "checked";
+			}
+			else
+			{
+				$checked34 = "";	
+			}
+			if ($key['per35']==1){
+			$checked35 = "checked";
+			}
+			else
+			{
+				$checked35 = "";	
 			}
      echo '
 
@@ -882,7 +852,8 @@
 
 
 
-	        <input type="hidden" value="'.$key['password'].'" name="password_not_changed" id="password_not_changed" class="reg-login-text-field" />
+	        <input type="hidden" value="'.$key['password1'].'" name="password_not_changed" id="password_not_changed" class="reg-login-text-field" />
+	          <input type="hidden" value="'.$key['skey'].'" name="prev_skey" id="prev_skey" class="reg-login-text-field" />
 
 
 
@@ -1215,11 +1186,19 @@ echo '<option value="'.$row12['id'].'">'.$row12['name'].'</option>';
     <label for="checkbox"></label>
 
    <p class="">Plot Status User(PER32)</p>
+
    <input name="per33" type="checkbox" value="1" class="float-left2" id="per33" '.$checked33.' />
-
     <label for="checkbox"></label>
-
    <p class="">Cancellation (PER33)</p>
+   
+   <input name="per34" type="checkbox" value="1" class="float-left2" id="per34" '.$checked34.' />
+    <label for="checkbox"></label>
+   <p class="">Audit (PER34)</p>
+   
+   <input name="per35" type="checkbox" value="1" class="float-left2" id="per35" '.$checked35.' />
+    <label for="checkbox"></label>
+   <p class="">Manage Surcharges (PER35)</p>
+   
 
 '; 
 

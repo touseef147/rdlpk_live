@@ -2746,7 +2746,7 @@ td{ padding:0px;  border:1px solid #000; border-left: #000;}
         $grouping = "";
         $having = "";
         $sorting = "";
-        $fixedcolumns.="  memberplot.member_id,projects.project_name,  memberplot.plot_id,  memberplot.id,memberplot.app_no,  "
+        $fixedcolumns.="  memberplot.member_id,projects.project_name, memberplot.mstatus ,memberplot.plot_id,  memberplot.id,memberplot.app_no,  "
                 . "memberplot.plotno,plots.price,plots.PLcharges,  members.name,  members.sodowo,  members.cnic,  "
                 . "members.phone,  members.email, plots.com_res,size_cat.code,size_cat.size, plots.plot_size, discnt.discount ";
         $fixedcolumns.=" ,duepayments.Due_Amount, payments.Received_Amount";
@@ -2839,7 +2839,11 @@ td{ padding:0px;  border:1px solid #000; border-left: #000;}
 				}else{
 					echo'0';
 					}
-			 echo'%</td>
+			 echo'%</td><td>';if($key['mstatus']==2){
+			 echo'<span style="color:red">Blocked</span>';
+			 }
+			 
+			 echo'</td>
 			 </tr>';
 			}
 			

@@ -1,5 +1,7 @@
 <?php
-
+Yii::import('ext.swiftMailer.SwiftMailer');
+// Create a new Transport object
+////$Transport = SwiftMailer::smtpTransport($host, $port);
 class MemberController extends Controller
 
 {
@@ -900,44 +902,162 @@ $command = $connection -> createCommand($sql);
 ///////////////////////////////////////////////////////////////////////////////
 public function actionMail()
 
-	{			
-		  $connection = Yii::app()->db;
-				
-				
+	{	        $email=$_POST['email'];     
+	        try {
+	          
+	            $connection = Yii::app()->db;
 				 $sql="UPDATE members SET username='".$_POST['username']."',password='".$_POST['password']."' where id=".$_REQUEST['mid']."";
 				$command = $connection -> createCommand($sql);
 			    $command -> execute();  
 				$sql="UPDATE ua_activate_requests SET replied=1 where id=".$_REQUEST['id']."";
 				$command = $connection -> createCommand($sql);
 			    $command -> execute();  
+			     
+	             $message = $_POST["message"];
+        	    Yii::import('application.extensions.phpmailer.JPhpMailer');
+                $mail = new JPhpMailer;
+                $mail->IsSMTP();
+                $mail->Host = 'mail.rdlpk.com';
+                $mail->SMTPAuth = true;
+                $mail -> Port = 465;
+                $mail -> SMTPSecure = 'ssl';
+                $mail->Username = 'info@rdlpk.com';
+                $mail->Password = '%c!+y~^;FJ[3';
+                $mail->SetFrom('info@rdlpk.com', 'Royal Orchard');
 
-				$subject = "Member Account Activation Email";
-     		    $message = $_POST["message"];
-			    $email = $_POST["email"];
-			    mail($email ,$subject ,$message);
-								
-			    $this->redirect('ua_activate_requests'); 
+        
+                $mail->Subject = 'User Account Activation';
+                $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
+                $mail->MsgHTML($message);
+              
+                $mail->addAddress($email);
+                $mail->Send();
+                $mail->ClearBCCs();
+                $mail->ClearAddresses();
+               $this->redirect('ua_activate_requests'); 
+	      }catch(Exception $e){
+             echo  $e->getMessage();exit;
+	      }
+	    
+		        
+
+				
+				
+				
+			  //  $this->redirect('ua_activate_requests'); 
+	}
+	
+	public function actionFpmail(){
+	             $email=$_POST['email'];
+	         try {
+	          
+	             $connection = Yii::app()->db;
+			     $sql="UPDATE forgot_password_requests SET replied=1 where id=".$_REQUEST['id']."";
+				$command = $connection -> createCommand($sql);
+		        $command -> execute();  
+		    	 $sql="UPDATE members SET username='".$_POST['username']."',password='".$_POST['password']."' where id=".$_REQUEST['mid']."";
+			     $command = $connection -> createCommand($sql);
+			     $command -> execute(); 
+			     
+	             $message = $_POST["message"];
+        	    Yii::import('application.extensions.phpmailer.JPhpMailer');
+                $mail = new JPhpMailer;
+                $mail->IsSMTP();
+                $mail->Host = 'mail.rdlpk.com';
+                $mail->SMTPAuth = true;
+                $mail -> Port = 465;
+                $mail -> SMTPSecure = 'ssl';
+                $mail->Username = 'info@rdlpk.com';
+                $mail->Password = '%c!+y~^;FJ[3';
+                $mail->SetFrom('info@rdlpk.com', 'Royal Orchard');
+
+        
+                $mail->Subject = 'Forgot Username/Password';
+                $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
+                $mail->MsgHTML($message);
+               /// $mail->AddAddress("$email", 'RDLPK');
+                $mail->addAddress($email);
+                $mail->Send();
+                $mail->ClearBCCs();
+                $mail->ClearAddresses();
+               $this->redirect('forgot_password_requests'); 
+	      }catch(Exception $e){
+             echo  $e->getMessage();exit;
+	      }
 	}
 ///////////////////////////////////////////////////////////////////////////////
-public function actionFpmail()
+public function actionFpmail2()
 
 	{			
-		  $connection = Yii::app()->db;
+		         $connection = Yii::app()->db;
+			
+			///	 $sql="UPDATE forgot_password_requests SET replied=1 where id=".$_REQUEST['id']."";
+			///	$command = $connection -> createCommand($sql);
+			 // ///  $command -> execute();  
+			////	 $sql="UPDATE members SET username='".$_POST['username']."',password='".$_POST['password']."' where id=".$_REQUEST['mid']."";
+			////	$command = $connection -> createCommand($sql);
+			 ///   $command -> execute();  
 				
-				 $sql="UPDATE forgot_password_requests SET replied=1 where id=".$_REQUEST['id']."";
-				$command = $connection -> createCommand($sql);
-			    $command -> execute();  
-				 $sql="UPDATE members SET username='".$_POST['username']."',password='".$_POST['password']."' where id=".$_REQUEST['mid']."";
-				$command = $connection -> createCommand($sql);
-			    $command -> execute();  
-				
-
-				$subject = "Forgot Member Account Email";
-     		    $message = $_POST["message"];
-			    $email = $_POST["email"];
-			    mail($email ,$subject ,$message);
+                try {
+			////	$subject = "Forgot Member Account Email";
+     		////    $message = $_POST["message"];
+			////    $email = $_POST["email"];
+			    
+		/////	    Yii::import('application.extensions.phpmailer.JPhpMailer');
+        ////        $mail = new JPhpMailer;
+               
+        ////        $mail -> SMTPDebug = 3;
+    //////            $mail -> isSMTP();
+          //      $mail -> Host = 'mail.rdlpk.com';
+            //    $mail -> Port = 465;
+             //   $mail -> SMTPSecure = 'tls';
+    
+              //  $mail->SMTPAuth = true;
+            //    $mail->Username = 'info@rdlpk.com';
+              //  $mail->Password = '%c!+y~^;FJ[3';
+            //    $mail->SetFrom('info@rdlpk.com', 'Royal Orchard');
+              //  $mail->Subject = 'PHPMailer Test Subject via smtp, basic with authentication';
+                //$mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
+            //    $mail->MsgHTML('<h1>JUST A TEST!</h1>');
+              //  $mail->AddAddress($email);
+            //    $mail->Send();
+              //   	 echo "<script>window.location.assign('forgot_password_requests')</script>";
+               ///	$this->redirect('forgot_password_requests'); 
+                
+                    
+                    $message            = new YiiMailMessage;
+           //this points to the file test.php inside the view path
+        //		$message->view = "test";
+        	//	$sid                 = 1;
+        	//	$criteria            = new CDbCriteria();
+        	//	$criteria->condition = "studentID=".$sid."";			
+        	//	$studModel1 	     = Student::model()->findByPk($sid);		
+        	//	$params              = array('myMail'=>$studModel1);
+        		$message->subject    = 'My TestSubject';
+        		$message->setBody('ff', 'text/html');				
+        		$message->addTo('bhatti_147@hotmail.com');
+        		$message->from = 'info@rdlpk.com';	
+        		Yii::app()->mail->send($message);
+                    
+                }
+                catch (Exception $e) {
+                                        
+                                        $_SESSION["danger"] = "Erro ao enviar mensagem " . $mail -> ErrorInfo;
+                                        Header("Location:forgot_password_requests");
+                                        die();
+                                        
+                                    }
+             /*  if (!$mail->Send())
+                    {
+                    echo "Error: $mail->ErrorInfo";
+                    }
+                    else
+                         {
+                            echo "Message Sent!";
+                        }   
+			 echo "<script>window.location.assign('forgot_password_requests')</script>";*/
 								
-			    $this->redirect('forgot_password_requests'); 
+			    ///$this->redirect('forgot_password_requests'); 
 	}
 ////////////////////////////////////////////////////////////////////////////////
 function actionUa_activate_delete()

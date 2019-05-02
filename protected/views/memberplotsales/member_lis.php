@@ -149,7 +149,30 @@ $pages_data = Yii::app()->session['pages_array'];
             }?></select> 
 
 
+ <select name="allotmentstatus" id="allotmentstatus" style="width:180px;">
+<option value="">Select Status</option>
 
+<option value="1">Alloted</option>
+<option value="2">Under Allotment</option>
+<option value="3">Under Transfer</option> 
+<?php if((Yii::app()->session['user_array']['per32']=='1')){?>
+<option value="4">Blocked</option><?php }?>
+</select>
+
+
+     			<select name="com_res" id="com_res"  style="width:180px;"><?php 
+
+	         	echo '<option value="">Select Property Type</option>';
+
+			
+
+			$res=array();
+
+            foreach($com_res as $res){
+
+            echo '<option value="'.$res['com_res'].'">'.$res['com_res'].'</option>'; 
+
+            }?></select>
     <input type="text" value="" name="plot_detail_address" id="plot_detail_address" class="new-input" placeholder="Plot No" />
 
 

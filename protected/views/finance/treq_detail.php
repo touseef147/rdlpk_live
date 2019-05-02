@@ -217,9 +217,9 @@ $new_date = date('d-m-y', $middle);
       <h5>Installment Details</h5>
        <?php
 		$connection = Yii::app()->db;
-		$land  = "SELECT * FROM installpayment where plot_id='".$ppid."' and paidamount!='' and mem_id!='".$memmm."' ";
+		$land  = "SELECT * FROM installpayment where plot_id='".$ppid."' and paidamount!='' and mem_id!='".$memmm."'  and fstatus !='Cancelled' and others !='Cancelled'";
 		$land_cost = $connection->createCommand($land)->queryAll();
-		$sql_payment  = "SELECT * FROM plotpayment where plot_id='".$ppid."' and paidamount!='' and mem_id='".$memmm1."' ";
+		$sql_payment  = "SELECT * FROM plotpayment where plot_id='".$ppid."' and paidamount!='' and mem_id='".$memmm1."' and fstatus !='Cancelled' and others !='Cancelled'";
 		$result_payments = $connection->createCommand($sql_payment)->queryAll();
 echo '<table  class="table table-striped table-new table-bordered">
     <thead style="background:#666; border-color:#ccc; color:#fff; ">

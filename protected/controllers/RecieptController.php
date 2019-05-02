@@ -1,6 +1,1322 @@
 <?php
 class RecieptController extends Controller
 {
+		 /////////////////////////START:CANCEL,REPRESENT AND BOUNCE////////////////
+	public function actionAssignuser()
+			{ 
+					if(isset($_POST['userid']) && empty($_POST['userid']))
+						{
+							$error  = 'Please Select Alternate User <br>';
+						}
+						if(isset($_POST['sc_id']) && empty($_POST['sc_id']))
+						{
+							$error  .= 'Please Select Sales Center <br>';
+						}
+						if(empty($error)){
+				    $connection = Yii::app()->db;
+					  $sql2="UPDATE receipt SET `user`='".$_POST['userid']."',sc_id='".$_POST['sc_id']."' where id='".$_POST['rid']."'";
+				    $command = $connection -> createCommand($sql2);
+					$command -> execute();
+					echo'User and Sales Center Assigned Successfully';				      						
+						}else{
+							echo $error;
+							}
+							
+		
+			}
+			public function actionUnsupervised_list()
+         {
+             
+        $connection = Yii::app()->db;
+        $sql ="SELECT *,members.id as mid,receipt.create_date as mcd,receipt.id as rid from receipt 
+			 Left join members on (receipt.mem_id=members.id) where sc_id=0";
+        $result_data = $connection->createCommand($sql)->queryRow();
+        $layout='//layouts/column1';
+        $temp_projects_array = Yii::app()->session['projects_array'];
+		$num_of_projects_counter = count($temp_projects_array);	
+		$num_of_projects_counter2 = $num_of_projects_counter;
+		$sql1 =   "select * from projects where";
+		$num_of_projects_counter--;
+		while($num_of_projects_counter>-1)
+		{
+			$sql2[$num_of_projects_counter] = " id=".Yii::app()->session['projects_array'][$num_of_projects_counter]['project_id'];
+			$num_of_projects_counter--;
+		}
+		
+		$sql_project = $sql1;
+		$sql_project = $sql_project.implode(' or',$sql2);
+		$result_projects = $connection->createCommand($sql_project)->query() or mysql_error();
+        $this->render('unsupervised_list', array('data'=>$result_data,'pro'=>$result_projects));
+   		 }
+   		 public function actionUnsupreq()
+			{
+			    if(isset(Yii::app()->session['user_array']['username']))
+			{
+		$connection = Yii::app()->db; 
+      $temp_projects_array = Yii::app()->session['projects_array'];
+		$num_of_projects_counter = count($temp_projects_array);	
+		$num_of_projects_counter2 = $num_of_projects_counter;
+		$sql1 =   "select * from projects where";
+		$num_of_projects_counter--;
+		while($num_of_projects_counter>-1)
+		{
+			$sql2[$num_of_projects_counter] = " id=".Yii::app()->session['projects_array'][$num_of_projects_counter]['project_id'];
+			$num_of_projects_counter--;
+		}
+		
+		$sql_project = $sql1;
+		$sql_project = $sql_project.implode(' or',$sql2);
+		$result_projects = $connection->createCommand($sql_project)->query() or mysql_error();
+			$prooo='';$pos=0;
+			foreach($result_projects as $pro){
+			if($pos==0){$prooo .=$pro['id'];}else{
+			$prooo .=','.$pro['id'];}
+			$pos=$pos+1;
+			}
+			//echo $prooo;
+		
+		$where='';
+
+				$and=false;
+			if ( isset($_POST['project_id']) &&  $_POST['project_id']!=""){				
+				if ($and==true)
+				{
+					$where.=" and p.project_id ='".$_POST['project_id']."'";
+				}
+				else
+				{
+					$where.="p.project_id = '".$_POST['project_id']."'";
+				}
+				$and=true;
+			}
+				if ( isset($_POST['reno']) &&  $_POST['reno']!=""){				
+				if ($and==true)
+				{
+					$where.=" and rpt_print.r_no ='".$_POST['reno']."'";
+				}
+				else
+				{
+					$where.=" rpt_print.r_no = '".$_POST['reno']."'";
+				}
+				$and=true;
+			}
+		 if ( isset($_POST['typed']) &&  $_POST['typed']!=""){				
+				if ($and==true)
+				{
+				$where.="and receipt.typed = '".$_POST['typed']."'";
+				}
+				else
+				{
+					$where.="receipt.typed = '".$_POST['typed']."'";
+				}
+				$and=true;
+			}
+		 if ( isset($_POST['type']) &&  $_POST['type']!=""){				
+				if ($and==true)
+				{
+				$where.="and receipt.type LIKE '%".$_POST['type']."%'";
+				}
+				else
+				{
+					$where.="receipt.type LIKE '%".$_POST['type']."%'";
+				}
+				$and=true;
+			}
+		
+		 if ( isset($_POST['datefrom']) &&  $_POST['datefrom']!="" && isset($_POST['dateto']) &&  $_POST['dateto']!=""){		
+		 $from=date("Y-m-d", strtotime($_POST['datefrom']));
+		$to=date("Y-m-d", strtotime($_POST['dateto']));		
+				if ($and==true)
+				{
+				$where.="and receipt.create_date between '".$from."' and '".$to."'";
+				}
+				else
+				{
+					$where.="receipt.create_date between '".$from."' and '".$to."'";
+				}
+				$and=true;
+			}	
+		if (isset($_POST['ref_no']) && $_POST['ref_no']!=""){
+				//$plotno=$_POST['plotno'];
+				if ($and==true)
+				{
+					  $where.=" and receipt.ref_no Like '%".$_POST['ref_no']."%'";
+				}
+				else
+				{
+					$where.=" receipt.ref_no Like '%".$_POST['ref_no']."%'";
+				}
+				$and=true;
+			}
+			if (isset($_POST['cnic']) && $_POST['cnic']!=""){
+				if ($and==true)
+				{
+					  $where.=" and m.cnic ='".$_POST['cnic']."'";
+				}
+				else
+				{
+					$where.=" m.cnic ='".$_POST['cnic']."'";
+				}
+				$and=true;
+			}
+		
+			if (isset($_POST['name']) && $_POST['name']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and m.name like '%".$_POST['name']."%'";
+				}
+				else
+				{
+					$where.=" m.name like '%".$_POST['name']."%'";
+				}
+				$and=true;
+			}
+			if (isset($_POST['filed']) && $_POST['filed']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and receipt.filed ='".$_POST['filed']."'";
+				}
+				else
+				{
+					$where.=" receipt.filed ='".$_POST['filed']."'";
+				}
+				$and=true;
+			}
+			if (isset($_POST['bank']) && $_POST['bank']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and rpt_print.bank_details ='".$_POST['bank']."'";
+				}
+				else
+				{
+					$where.=" rpt_print.bank_details ='".$_POST['bank']."'";
+				}
+				$and=true;
+			}
+if (isset($_POST['slipno']) && $_POST['slipno']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and rpt_print.slipno ='".$_POST['slipno']."'";
+				}
+				else
+				{
+					$where.=" rpt_print.slipno ='".$_POST['slipno']."'";
+				}
+				$and=true;
+			}
+			
+			if (isset($_POST['inid']) && $_POST['inid']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and receipt.id ='".$_POST['inid']."'";
+				}
+				else
+				{
+					$where.=" receipt.id ='".$_POST['inid']."'";
+				}
+				$and=true;
+			}
+			
+			if (isset($_POST['status']) && $_POST['status']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and receipt.fstatus ='".$_POST['status']."'";
+				}
+				else
+				{
+					$where.=" receipt.fstatus ='".$_POST['status']."'";
+				}
+				$and=true;
+			}
+			
+		/*	if (isset($_POST['status1']) && $_POST['status1']!=""){
+				
+			if ($and==true){
+				
+				if ($_POST['status1']==1){$where.=" and receipt.bank_details !=''";}
+				if ($_POST['status1']==2){$where.=" and receipt.bank_details =''";	}
+				if ($_POST['status1']==5){$where.=" ";
+				
+				
+				}
+			}else{
+			
+				if ($_POST['status1']==1){$where.="  receipt.bank_details!=''";$and=true;}
+				if ($_POST['status1']==2){$where.="  receipt.bank_details =''";$and=true;	}
+				if ($_POST['status1']==5){$where.=" ";}
+			}
+			
+				
+			}*/
+//print_r(Yii::app()->session['user_array']);exit;
+			$co='';
+			$filter='';
+			$jo='';
+			if(Yii::app()->session['user_array']['per18']==1 && Yii::app()->session['user_array']['per19']==0 && Yii::app()->session['user_array']['per20']==0 && Yii::app()->session['user_array']['per21']==0){
+			
+			if ($and==true){	
+			$where .=' and receipt.user='.Yii::app()->session['user_array']['id'];	
+			}else{$where .=' receipt.user='.Yii::app()->session['user_array']['id'];	}
+			$and=true;
+			if (!isset($_POST['status1'])){	
+			$where .=" and receipt.bank_details=''";	
+			}
+			}	
+			
+			if(Yii::app()->session['user_array']['per21']==1){
+				if (!isset($_POST['filed'])){	
+				if ($and==true){
+				$where .=" and receipt.filed=0";	
+				}else{$where .=" receipt.filed=0";	}
+			$and=true;
+			}
+			}
+			if(Yii::app()->session['user_array']['per9']==1){
+			if (!isset($_POST['status'])){	
+				if ($and==true){
+				$where .=" and receipt.bank_details!='' and receipt.fstatus='' ";	
+				}else{$where .=" receipt.bank_details!='' and receipt.fstatus='' ";}
+			
+			$and=true;
+
+			}}
+			
+			if ($and==true){$co='where';}
+			
+			//for Pagination 
+if(isset($_POST['limit']) && $_POST['limit']!==''){$limit = $_POST['limit'];}else{
+$limit = 50;}
+$adjacent = 50;
+$page = $_REQUEST['page'];
+if($page==1){
+$start = 0;  
+}
+else{
+$start = ($page-1)*$limit;
+} 
+
+		$connection = Yii::app()->db; 
+	 $sql_payment1  = "SELECT p.project_id,receipt.*,m.*,receipt.id as rid FROM receipt 
+left join members m on receipt.mem_id=m.id
+Inner join rpt_print on rpt_print.rid=receipt.id
+left join plots p on rpt_print.msid=p.id 
+
+$co $where $filter and receipt.sc_id='0'  group by rpt_print.rid
+";//echo $sql_payment1;exit;
+
+		$result_payments1 = $connection->createCommand($sql_payment1)->queryAll();
+		$rows =count($result_payments1);
+		     $sql_payment  = "SELECT receipt.*,m.*,receipt.id as rid,m.cnic as mcnic,receipt.create_date as rcd FROM receipt 
+left join members m on receipt.mem_id=m.id
+LEFT join rpt_print on rpt_print.rid=receipt.id
+left join plots p on rpt_print.msid=p.id 
+$jo
+$co 
+$where $filter and receipt.sc_id='0' group by rpt_print.rid
+order by receipt.create_date DESC,receipt.id DESC
+limit $start,$limit";
+		$result_payments = $connection->createCommand($sql_payment)->queryAll();
+
+        $sql_project = "SELECT * from projects";
+
+		$result_project = $connection->createCommand($sql_project)->query();
+		$sql_categories  = "SELECT * from categories";
+
+		    $categories = $connection->createCommand($sql_categories)->query();
+	    $sql_sector ="SELECT DISTINCT sector FROM plots";
+
+		$result_sector = $connection->createCommand($sql_sector)->query();
+
+		$sql_payments= $connection->createCommand($sql_payment)->query();
+		
+		$sql_size  = "SELECT * from size_cat";
+
+		$sizes = $connection->createCommand($sql_size)->query();
+		
+
+	$count=0;
+
+	if ($sql_payments!=''){
+	$home=Yii::app()->request->baseUrl; 
+    $res=array();
+	foreach($sql_payments as $key){
+	$total=$key['amount'];	
+	//if (isset($_POST['status1']) && $_POST['status1']==5){
+	//	$total=0;
+	//	$sql_ins  = "SELECT * from installpayment where r_id='".$key['rid']."' ";
+	//	$result_ins = $connection->createCommand($sql_ins)->queryAll();
+	//	$sql_plo  = "SELECT * from plotpayment where r_id='".$key['rid']."' ";
+	//	$result_plo = $connection->createCommand($sql_plo)->queryAll();
+	//	foreach($result_ins as $row){$total=$total+$row['paidamount'];}
+	//	foreach($result_plo as $row1){$total=$total+$row1['paidamount'];}
+	//	}	
+	$connection = Yii::app()->db; 
+ 	$sql_payment2  = "SELECT * FROM rpt_print where rid='".$key['rid']."'";
+	$result_payments2 = $connection->createCommand($sql_payment2)->queryAll();
+	  echo '<tr><td>';
+  if(($key['fstatus']=='Bounce')){
+	  echo'';
+	  }
+  elseif($key['typed']==0){
+  echo '<a  href="#">'.$key['rid'].'</a>';
+  }else{echo '<a  href="#">'.$key['rid'].'</a>';}
+  echo '</td><td>'.date("d-m-Y", strtotime($key['rcd'] )).'</td><td>'.$key['name'].'</td><td>'.$key['mcnic'].'</td><td style="text-align:right;">'.number_format($key['amount']).'</td><td>'.$key['ref_no'].'</td><td>'.$key['type'].'</td><td>'.$key['fstatus'].'</td>';
+  echo '<td>';if($key['fstatus']=='Bounce'){ echo '';}else{
+  if(Yii::app()->session['user_array']['per9']==1){
+  echo '<a  href="#">Finance Verify</a>';}
+    if(Yii::app()->session['user_array']['per19']==1 ){
+   echo '/<a  href="#">Sales Center</a>';}
+	 if(Yii::app()->session['user_array']['per21']==1 ){
+     echo '/<a  href="#">Receipt Admin</a>';}}
+   
+echo '</td>';?>
+
+<?php 
+echo'';
+$color='';
+ 
+echo '<td></td><td style="background-color:'.$color.';  ">';
+				echo'
+			   <a href="assign_supervision?rid='.$key['rid'].'">Assign Supervision</a>';
+
+
+           }
+	 ?>
+	
+	
+	 
+	 
+	  </td></tr>
+			<?php }else{echo exit;}
+// for pagination 
+$pagination='';
+	if ($page == 0) $page = 1;					//if no page var is given, default to 1.
+	$prev = $page - 1;							//previous page is page - 1
+	$next = $page + 1;							//next page is page + 1
+	$prev_='';
+	$first='';
+	$lastpage = ceil($rows/$limit);	
+	$next_='';
+	$last='';
+	$adjacents=$adjacent;
+	if($lastpage > 1)
+	{	if ($page > 1) 
+			$prev_.= "<a class='page-numbers' href=\"?page=$prev\">previous</a>";
+		else{	}
+		if ($lastpage < 5 + ($adjacents * 2))	//not enough pages to bother breaking it up
+		{	
+		$first='';
+			for ($counter = 1; $counter <= $lastpage; $counter++)
+			{
+				if ($counter == $page)
+					$pagination.= "<span class=\"current\">$counter</span>";
+				else
+					$pagination.= "<a class='page-numbers' href=\"?page=$counter\">$counter</a>";					
+			}
+			$last='';
+		}
+		elseif($lastpage > 3 + ($adjacents * 2))	//enough pages to hide some
+		{
+			$first='';
+			if($page < 1 + ($adjacents * 2))		
+			{
+				for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if ($counter == $page)
+						$pagination.= "<span class=\"current\">$counter</span>";
+					else
+						$pagination.= "<a class='page-numbers' href=\"?page=$counter\">$counter</a>";					
+				}
+			$last.= "<a class='page-numbers' href=\"?page=$lastpage\">Last</a>";			
+			}
+			elseif($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+		       $first.= "<a class='page-numbers' href=\"?page=1\">First</a>";	
+			for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if ($counter == $page)
+						$pagination.= "<span class=\"current\">$counter</span>";
+					else
+						$pagination.= "<a class='page-numbers' href=\"?page=$counter\">$counter</a>";					
+				}
+				$last.= "<a class='page-numbers' href=\"?page=$lastpage\">Last</a>";			
+			}
+			else
+			{
+			    $first.= "<a class='page-numbers' href=\"?page=1\">First</a>";	
+				for ($counter = $lastpage - (2 + ($adjacents * 2)); $counter <= $lastpage; $counter++)
+				{
+					if ($counter == $page)
+						$pagination.= "<span class=\"current\">$counter</span>";
+					else
+						$pagination.= "<a class='page-numbers' href=\"?page=$counter\">$counter</a>";					
+				}
+				$last='';
+			}
+        	}
+		if ($page < $counter - 1) 
+			$next_.= "<a class='page-numbers' href=\"?page=$next\">next</a>";
+		else{
+			}
+		$pagination = "<div class=\"pagination\">".$first.$prev_.$pagination.$next_.$last;
+		$pagination.= "</div>\n";		
+	}
+   echo '<tr  ><td colspan="11"><b style="color:#08c">Total Records Found :&nbsp;&nbsp;'.$rows.'</b></td></tr>';
+	echo '<tr><td colspan="11">'.$pagination.'</td></tr>'; exit; 
+	
+	 exit;
+
+	    if(isset($_POST['username']) && empty($_POST['username']))
+
+			{
+
+				$error = 'Please enter username<br>';
+
+			}
+
+			if(isset($_POST['password']) && empty($_POST['password']))
+
+			{
+
+				$error .= 'Please enter Password<br>';
+
+			}
+
+			if(empty($error))
+
+			{
+
+				  $username = $_POST['username'];
+
+				 $password = md5($_POST['password']);
+
+				  $connection = Yii::app()->db;  
+
+				   $sql = "SELECT * FROM user where username ='".$username."' AND  password='".$password."' AND status=1";
+
+				  $result_data = $connection->createCommand($sql)->queryRow();
+
+				  if($result_data)
+
+				  {
+
+						Yii::app()->session['user_array'] = $result_data;
+
+						echo 1;exit();
+
+				  }else
+
+				  {
+
+					 echo "Invalid Username and Password"; 
+
+				  }
+
+			}else
+
+			{
+
+				echo $error;
+
+			}
+
+	exit;	 
+
+	}
+			}
+	public function actionAssign_supervision()
+			{ 
+				
+										$connection = Yii::app()->db;
+						  $sql ="SELECT *,bank.name as bname,members.id as mid,members.name as mname,receipt.id as rid from receipt 
+						 Left join members on (receipt.mem_id=members.id)
+						 Left join bank on (receipt.bank_details=bank.id)
+						  where receipt.id='".$_REQUEST['rid']."'";
+			              $result_data = $connection->createCommand($sql)->queryRow();    
+						
+							
+							$this->render('assign_supervision', array('data'=>$result_data));
+				
+			
+					}
+	
+		public function actionSwitch()
+			{ 
+				
+										$connection = Yii::app()->db;
+						 $sql ="SELECT *,bank.name as bname,members.id as mid,members.name as mname,receipt.id as rid from receipt 
+						 Left join members on (receipt.mem_id=members.id)
+						 Left join bank on (receipt.bank_details=bank.id)
+						  where receipt.id='".$_REQUEST['rid']."'";  
+			                $result_data = $connection->createCommand($sql)->queryRow();    
+							$layout='//layouts/column1';
+							$sql_project = "SELECT * from projects";
+							$result_project = $connection->createCommand($sql_project)->query();
+							$this->render('switch', array('data'=>$result_data,'pro'=>$result_project));
+				
+			
+			}
+			public function actionSwitchuser()
+			{ 
+					if(isset($_POST['userid']) && empty($_POST['userid']))
+						{
+							$error  = 'Please Select Alternate User <br>';
+						}
+						if(empty($error)){
+				    $connection = Yii::app()->db;
+					  $sql2="UPDATE receipt SET `user`='".$_POST['userid']."' where id='".$_POST['rid']."'";
+				    $command = $connection -> createCommand($sql2);
+					$command -> execute();
+					echo'User Switched Successfully';				      						
+						}else{
+							echo $error;
+							}
+							
+		
+			}
+			public function actionRepresent()
+			{ 
+				$error='';
+				$connection = Yii::app()->db;		
+				if((isset($_POST['bounceid']) && empty($_POST['bounceid'])))
+				{ 
+					 $error ='Please Select Status';
+				} //echo $_POST['recid'];exit;
+								if(empty($error)){			
+					$sql1="UPDATE installpayment SET `fstatus`='Bounce',others='Bounce'
+					where r_id='".$_REQUEST['recid']."'";	
+					$command = $connection -> createCommand($sql1);
+					$command -> execute();
+					$sql2="UPDATE receipt SET `fstatus`='Bounce' where id='".$_REQUEST['recid']."'";	
+				    $command = $connection -> createCommand($sql2);
+					$command -> execute();
+					$sql3="UPDATE plotpayment SET `fstatus`='Bounce',others='Bounce'
+					where r_id='".$_REQUEST['recid']."'";	
+					$command = $connection -> createCommand($sql3);
+					$command -> execute();
+					echo 'Receipt Bounce Successfully';
+		
+		}else{
+			echo $error;exit;
+			
+			}
+			}
+			
+			public function actionBouncereceipt()
+		{	
+			 $connection = Yii::app()->db;
+			 $sql ="SELECT *,members.id as mid,receipt.create_date as mcd,receipt.id as rid from receipt 
+			 Left join members on (receipt.mem_id=members.id)
+			  where receipt.id='".$_REQUEST['id']."'"; 
+			$result_data = $connection->createCommand($sql)->queryRow();  
+			$layout='//layouts/column1';
+			$this->render('bouncereceipt', array('data'=>$result_data));
+		}
+		public function actionRepresentrec()
+		{
+			 $connection = Yii::app()->db;
+			 $sql ="SELECT *,members.id as mid,receipt.create_date as mcd,receipt.id as rid from receipt 
+			 Left join members on (receipt.mem_id=members.id)
+			  where receipt.id='".$_REQUEST['id']."'"; 
+			$result_data = $connection->createCommand($sql)->queryRow();  
+			$layout='//layouts/column1';
+			$this->render('representrec', array('data'=>$result_data));
+		}
+		 public function actionBouncerec_list()
+    {
+        $connection = Yii::app()->db;
+        $sql ="SELECT *,members.id as mid,receipt.create_date as mcd,receipt.id as rid from receipt 
+			 Left join members on (receipt.mem_id=members.id)";
+        $result_data = $connection->createCommand($sql)->queryRow();
+        $layout='//layouts/column1';
+        $temp_projects_array = Yii::app()->session['projects_array'];
+		$num_of_projects_counter = count($temp_projects_array);	
+		$num_of_projects_counter2 = $num_of_projects_counter;
+		$sql1 =   "select * from projects where";
+		$num_of_projects_counter--;
+		while($num_of_projects_counter>-1)
+		{
+			$sql2[$num_of_projects_counter] = " id=".Yii::app()->session['projects_array'][$num_of_projects_counter]['project_id'];
+			$num_of_projects_counter--;
+		}
+		
+		$sql_project = $sql1;
+		$sql_project = $sql_project.implode(' or',$sql2);
+		$result_projects = $connection->createCommand($sql_project)->query() or mysql_error();
+        $this->render('bouncerec_list', array('data'=>$result_data,'pro'=>$result_projects));
+    }
+    	public function actionBouncereq()
+        	{
+		$connection = Yii::app()->db; 
+      $temp_projects_array = Yii::app()->session['projects_array'];
+		$num_of_projects_counter = count($temp_projects_array);	
+		$num_of_projects_counter2 = $num_of_projects_counter;
+		$sql1 =   "select * from projects where";
+		$num_of_projects_counter--;
+		while($num_of_projects_counter>-1)
+		{
+			$sql2[$num_of_projects_counter] = " id=".Yii::app()->session['projects_array'][$num_of_projects_counter]['project_id'];
+			$num_of_projects_counter--;
+		}
+		
+		$sql_project = $sql1;
+		$sql_project = $sql_project.implode(' or',$sql2);
+		$result_projects = $connection->createCommand($sql_project)->query() or mysql_error();
+			$prooo='';$pos=0;
+			foreach($result_projects as $pro){
+			if($pos==0){$prooo .=$pro['id'];}else{
+			$prooo .=','.$pro['id'];}
+			$pos=$pos+1;
+			}
+			//echo $prooo;
+		
+		$where='';
+
+				$and=false;
+			if ( isset($_POST['project_id']) &&  $_POST['project_id']!=""){				
+				if ($and==true)
+				{
+					$where.=" and (p.project_id ='".$_POST['project_id']."')";
+				}
+				else
+				{
+					$where.="(p.project_id = '".$_POST['project_id']."')";
+				}
+				$and=true;
+			}else{
+				if ($and==true)
+				{
+					$where.=" and (p.project_id IN (".$prooo.") )";
+				}
+				else
+				{
+					$where.=" (p.project_id IN (".$prooo.") )";
+				}
+				$and=true;
+
+				}
+				if ( isset($_POST['reno']) &&  $_POST['reno']!=""){				
+				if ($and==true)
+				{
+					$where.=" and rpt_print.r_no ='".$_POST['reno']."'";
+				}
+				else
+				{
+					$where.=" rpt_print.r_no = '".$_POST['reno']."'";
+				}
+				$and=true;
+			}
+		 if ( isset($_POST['typed']) &&  $_POST['typed']!=""){				
+				if ($and==true)
+				{
+				$where.="and receipt.typed = '".$_POST['typed']."'";
+				}
+				else
+				{
+					$where.="receipt.typed = '".$_POST['typed']."'";
+				}
+				$and=true;
+			}
+		 if ( isset($_POST['type']) &&  $_POST['type']!=""){				
+				if ($and==true)
+				{
+				$where.="and receipt.type LIKE '%".$_POST['type']."%'";
+				}
+				else
+				{
+					$where.="receipt.type LIKE '%".$_POST['type']."%'";
+				}
+				$and=true;
+			}
+		
+		 if ( isset($_POST['datefrom']) &&  $_POST['datefrom']!="" && isset($_POST['dateto']) &&  $_POST['dateto']!=""){		
+		 $from=date("Y-m-d", strtotime($_POST['datefrom']));
+		$to=date("Y-m-d", strtotime($_POST['dateto']));		
+				if ($and==true)
+				{
+				$where.="and receipt.create_date between '".$from."' and '".$to."'";
+				}
+				else
+				{
+					$where.="receipt.create_date between '".$from."' and '".$to."'";
+				}
+				$and=true;
+			}	
+		if (isset($_POST['ref_no']) && $_POST['ref_no']!=""){
+				//$plotno=$_POST['plotno'];
+				if ($and==true)
+				{
+					  $where.=" and receipt.ref_no Like '%".$_POST['ref_no']."%'";
+				}
+				else
+				{
+					$where.=" receipt.ref_no Like '%".$_POST['ref_no']."%'";
+				}
+				$and=true;
+			}
+			if (isset($_POST['cnic']) && $_POST['cnic']!=""){
+				if ($and==true)
+				{
+					  $where.=" and m.cnic ='".$_POST['cnic']."'";
+				}
+				else
+				{
+					$where.=" m.cnic ='".$_POST['cnic']."'";
+				}
+				$and=true;
+			}
+			if (isset($_POST['scf']) && $_POST['scf']!=""){
+				if ($and==true)
+				{
+					  $where.=" and receipt.sc_id ='".$_POST['scf']."'";
+				}
+				else
+				{
+					$where.=" receipt.sc_id ='".$_POST['scf']."'";
+				}
+				$and=true;
+			}
+			if (isset($_POST['name']) && $_POST['name']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and m.name like '%".$_POST['name']."%'";
+				}
+				else
+				{
+					$where.=" m.name like '%".$_POST['name']."%'";
+				}
+				$and=true;
+			}
+			if (isset($_POST['filed']) && $_POST['filed']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and receipt.filed ='".$_POST['filed']."'";
+				}
+				else
+				{
+					$where.=" receipt.filed ='".$_POST['filed']."'";
+				}
+				$and=true;
+			}
+			if (isset($_POST['bank']) && $_POST['bank']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and rpt_print.bank_details ='".$_POST['bank']."'";
+				}
+				else
+				{
+					$where.=" rpt_print.bank_details ='".$_POST['bank']."'";
+				}
+				$and=true;
+			}
+if (isset($_POST['slipno']) && $_POST['slipno']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and rpt_print.slipno ='".$_POST['slipno']."'";
+				}
+				else
+				{
+					$where.=" rpt_print.slipno ='".$_POST['slipno']."'";
+				}
+				$and=true;
+			}
+			
+			if (isset($_POST['inid']) && $_POST['inid']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and receipt.id ='".$_POST['inid']."'";
+				}
+				else
+				{
+					$where.=" receipt.id ='".$_POST['inid']."'";
+				}
+				$and=true;
+			}
+			
+			if (isset($_POST['status']) && $_POST['status']!=""){
+
+				if ($and==true)
+				{
+					  $where.=" and receipt.fstatus ='".$_POST['status']."'";
+				}
+				else
+				{
+					$where.=" receipt.fstatus ='".$_POST['status']."'";
+				}
+				$and=true;
+			}
+			
+			if (isset($_POST['status1']) && $_POST['status1']!=""){
+				
+			if ($and==true){
+				
+				if ($_POST['status1']==1){$where.=" and receipt.bank_details !=''";}
+				if ($_POST['status1']==2){$where.=" and receipt.bank_details =''";	}
+				if ($_POST['status1']==5){$where.=" ";
+				
+				
+				}
+			}else{
+			
+				if ($_POST['status1']==1){$where.="  receipt.bank_details!=''";$and=true;}
+				if ($_POST['status1']==2){$where.="  receipt.bank_details =''";$and=true;	}
+				if ($_POST['status1']==5){$where.=" ";}
+			}
+			
+				
+			}
+//print_r(Yii::app()->session['user_array']);exit;
+			$co='';
+			$filter='';
+			$jo='';
+			if(Yii::app()->session['user_array']['per18']==1 && Yii::app()->session['user_array']['per19']==0 && Yii::app()->session['user_array']['per20']==0 && Yii::app()->session['user_array']['per21']==0){
+			
+			if ($and==true){	
+			$where .=' and receipt.user='.Yii::app()->session['user_array']['id'];	
+			}else{$where .=' receipt.user='.Yii::app()->session['user_array']['id'];	}
+			$and=true;
+			if (!isset($_POST['status1'])){	
+			$where .=" and receipt.bank_details=''";	
+			}
+			}	
+			if(Yii::app()->session['user_array']['per18']==1){
+			if ($and==true){
+			$where .=' and user.sc_id='.Yii::app()->session['user_array']['sc_id'];	
+			}else{$where .=' user.sc_id='.Yii::app()->session['user_array']['sc_id'];}
+			$jo='Left Join user on(receipt.user=user.id)';
+			$and=true;
+			if (!isset($_POST['status1'])){	
+			$where .=" and receipt.bank_details=''";	
+			}
+			}
+			if(Yii::app()->session['user_array']['per21']==1){
+				if (!isset($_POST['filed'])){	
+				if ($and==true){
+				$where .=" and receipt.filed=0";	
+				}else{$where .=" receipt.filed=0";	}
+			$and=true;
+			}
+			}
+			if(Yii::app()->session['user_array']['per9']==1){
+			if (!isset($_POST['status'])){	
+				if ($and==true){
+				$where .=" and receipt.bank_details!='' and receipt.fstatus='' ";	
+				}else{$where .=" receipt.bank_details!='' and receipt.fstatus='' ";}
+			
+			$and=true;
+
+			}}
+			
+			if ($and==true){$co='where';}
+			
+			//for Pagination 
+if(isset($_POST['limit']) && $_POST['limit']!==''){$limit = $_POST['limit'];}else{
+$limit = 50;}
+$adjacent = 50;
+$page = $_REQUEST['page'];
+if($page==1){
+$start = 0;  
+}
+else{
+$start = ($page-1)*$limit;
+} 
+
+		$connection = Yii::app()->db; 
+	 $sql_payment1  = "SELECT receipt.*,m.*,receipt.id as rid FROM receipt 
+left join members m on receipt.mem_id=m.id
+Inner join rpt_print on rpt_print.rid=receipt.id
+left join plots p on rpt_print.msid=p.id 
+
+$jo
+$co $where $filter and receipt.fstatus='Bounce'  group by rpt_print.rid
+";//echo 123;exit;
+
+		$result_payments1 = $connection->createCommand($sql_payment1)->queryAll();
+		$rows =count($result_payments1);
+		  $sql_payment  = "SELECT receipt.*,m.*,receipt.id as rid,m.cnic as mcnic,receipt.create_date as rcd FROM receipt 
+left join members m on receipt.mem_id=m.id
+Inner join rpt_print on rpt_print.rid=receipt.id
+left join plots p on rpt_print.msid=p.id 
+
+$jo
+$co 
+$where $filter and receipt.fstatus='Bounce' group by rpt_print.rid
+order by receipt.create_date DESC,receipt.id DESC
+limit $start,$limit
+ ";
+		$result_payments = $connection->createCommand($sql_payment)->queryAll();
+
+        $sql_project = "SELECT * from projects";
+
+		$result_project = $connection->createCommand($sql_project)->query();
+		$sql_categories  = "SELECT * from categories";
+
+		    $categories = $connection->createCommand($sql_categories)->query();
+	    $sql_sector ="SELECT DISTINCT sector FROM plots";
+
+		$result_sector = $connection->createCommand($sql_sector)->query();
+
+		$sql_payments= $connection->createCommand($sql_payment)->query();
+		
+		$sql_size  = "SELECT * from size_cat";
+
+		$sizes = $connection->createCommand($sql_size)->query();
+		
+
+	$count=0;
+
+	if ($sql_payments!=''){
+	$home=Yii::app()->request->baseUrl; 
+    $res=array();
+	foreach($sql_payments as $key){
+	$total=$key['amount'];	
+	//if (isset($_POST['status1']) && $_POST['status1']==5){
+	//	$total=0;
+	//	$sql_ins  = "SELECT * from installpayment where r_id='".$key['rid']."' ";
+	//	$result_ins = $connection->createCommand($sql_ins)->queryAll();
+	//	$sql_plo  = "SELECT * from plotpayment where r_id='".$key['rid']."' ";
+	//	$result_plo = $connection->createCommand($sql_plo)->queryAll();
+	//	foreach($result_ins as $row){$total=$total+$row['paidamount'];}
+	//	foreach($result_plo as $row1){$total=$total+$row1['paidamount'];}
+	//	}	
+	$connection = Yii::app()->db; 
+ 	$sql_payment2  = "SELECT * FROM rpt_print where rid='".$key['rid']."'";
+	$result_payments2 = $connection->createCommand($sql_payment2)->queryAll();
+	  echo '<tr><td>';
+  if(($key['fstatus']=='Bounce')){
+	  echo'';
+	  }
+  elseif($key['typed']==0){
+  echo '<a  href="Updatereciept?id='.$key['rid'].'">'.$key['rid'].'</a>';
+  }else{echo '<a  href="Updaterecieptd?id='.$key['rid'].'">'.$key['rid'].'</a>';}
+  echo '</td><td>'.date("d-m-Y", strtotime($key['rcd'] )).'</td><td>'.$key['name'].'</td><td>'.$key['mcnic'].'</td><td style="text-align:right;">'.number_format($key['amount']).'</td><td>'.$key['ref_no'].'</td><td>'.$key['type'].'</td><td>'.$key['fstatus'].'</td>';
+  echo '<td>';if($key['fstatus']=='Bounce'){ echo '';}else{
+  if(Yii::app()->session['user_array']['per9']==1){
+  echo '<a  href="varification?id='.$key['rid'].'">Finance Verify</a>';}
+    if(Yii::app()->session['user_array']['per19']==1 ){
+   echo '/<a  href="varificationsales?id='.$key['rid'].'">Sales Center</a>';}
+	 if(Yii::app()->session['user_array']['per21']==1 ){
+     echo '/<a  href="readmin?id='.$key['rid'].'">Receipt Admin</a>';}}
+   
+echo '</td>';?>
+
+<?php 
+echo'';
+$color='';
+if($key['enableedit']=='1'){$color='red';}else{$color='';}
+ 
+echo '<td></td><td style="background-color:'.$color.';  ">';
+
+          if((Yii::app()->session['user_array']['per18']==1) &&(Yii::app()->session['user_array']['per19']==1) ){
+			  echo'<a href="print?id='.$key['rid'].'">View</a>/<a href="switch?rid='.$key['rid'].'">Switch User</a>';
+			
+			  }else{echo'
+			   <a href="representrec?id='.$key['rid'].'">Represent Receipt</a>';
+		   
+				
+				
+				
+		     }
+
+           }
+	 ?>
+	
+	
+	 
+	 
+	  </td></tr>
+			<?php }else{echo exit;}
+// for pagination 
+$pagination='';
+	if ($page == 0) $page = 1;					//if no page var is given, default to 1.
+	$prev = $page - 1;							//previous page is page - 1
+	$next = $page + 1;							//next page is page + 1
+	$prev_='';
+	$first='';
+	$lastpage = ceil($rows/$limit);	
+	$next_='';
+	$last='';
+	$adjacents=$adjacent;
+	if($lastpage > 1)
+	{	if ($page > 1) 
+			$prev_.= "<a class='page-numbers' href=\"?page=$prev\">previous</a>";
+		else{	}
+		if ($lastpage < 5 + ($adjacents * 2))	//not enough pages to bother breaking it up
+		{	
+		$first='';
+			for ($counter = 1; $counter <= $lastpage; $counter++)
+			{
+				if ($counter == $page)
+					$pagination.= "<span class=\"current\">$counter</span>";
+				else
+					$pagination.= "<a class='page-numbers' href=\"?page=$counter\">$counter</a>";					
+			}
+			$last='';
+		}
+		elseif($lastpage > 3 + ($adjacents * 2))	//enough pages to hide some
+		{
+			$first='';
+			if($page < 1 + ($adjacents * 2))		
+			{
+				for ($counter = 1; $counter < 4 + ($adjacents * 2); $counter++)
+				{
+					if ($counter == $page)
+						$pagination.= "<span class=\"current\">$counter</span>";
+					else
+						$pagination.= "<a class='page-numbers' href=\"?page=$counter\">$counter</a>";					
+				}
+			$last.= "<a class='page-numbers' href=\"?page=$lastpage\">Last</a>";			
+			}
+			elseif($lastpage - ($adjacents * 2) > $page && $page > ($adjacents * 2))
+			{
+		       $first.= "<a class='page-numbers' href=\"?page=1\">First</a>";	
+			for ($counter = $page - $adjacents; $counter <= $page + $adjacents; $counter++)
+				{
+					if ($counter == $page)
+						$pagination.= "<span class=\"current\">$counter</span>";
+					else
+						$pagination.= "<a class='page-numbers' href=\"?page=$counter\">$counter</a>";					
+				}
+				$last.= "<a class='page-numbers' href=\"?page=$lastpage\">Last</a>";			
+			}
+			else
+			{
+			    $first.= "<a class='page-numbers' href=\"?page=1\">First</a>";	
+				for ($counter = $lastpage - (2 + ($adjacents * 2)); $counter <= $lastpage; $counter++)
+				{
+					if ($counter == $page)
+						$pagination.= "<span class=\"current\">$counter</span>";
+					else
+						$pagination.= "<a class='page-numbers' href=\"?page=$counter\">$counter</a>";					
+				}
+				$last='';
+			}
+        	}
+		if ($page < $counter - 1) 
+			$next_.= "<a class='page-numbers' href=\"?page=$next\">next</a>";
+		else{
+			}
+		$pagination = "<div class=\"pagination\">".$first.$prev_.$pagination.$next_.$last;
+		$pagination.= "</div>\n";		
+	}
+   echo '<tr  ><td colspan="11"><b style="color:#08c">Total Records Found :&nbsp;&nbsp;'.$rows.'</b></td></tr>';
+	echo '<tr><td colspan="11">'.$pagination.'</td></tr>'; exit; 
+	
+	 exit;
+
+	    if(isset($_POST['username']) && empty($_POST['username']))
+
+			{
+
+				$error = 'Please enter username<br>';
+
+			}
+
+			if(isset($_POST['password']) && empty($_POST['password']))
+
+			{
+
+				$error .= 'Please enter Password<br>';
+
+			}
+
+			if(empty($error))
+
+			{
+
+				  $username = $_POST['username'];
+
+				 $password = md5($_POST['password']);
+
+				  $connection = Yii::app()->db;  
+
+				   $sql = "SELECT * FROM user where username ='".$username."' AND  password='".$password."' AND status=1";
+
+				  $result_data = $connection->createCommand($sql)->queryRow();
+
+				  if($result_data)
+
+				  {
+
+						Yii::app()->session['user_array'] = $result_data;
+
+						echo 1;exit();
+
+				  }else
+
+				  {
+
+					 echo "Invalid Username and Password"; 
+
+				  }
+
+			}else
+
+			{
+
+				echo $error;
+
+			}
+
+	exit;	 
+
+	}
+		public function actionBouncerec()
+        	{ 
+		$error='';
+		$connection = Yii::app()->db;
+		if((isset($_POST['comment']) && empty($_POST['comment'])))
+		{ 
+			 $error ='Please Enter Comments';
+		} 
+						if(empty($error)){
+			$sql1="UPDATE installpayment SET `fstatus`='Bounce',others='Bounce'
+			where r_id='".$_REQUEST['recid']."'";	
+       	    $command = $connection -> createCommand($sql1);
+            $command -> execute();
+			  $sql2="UPDATE receipt SET `fstatus`='Bounce',comm='".$_POST['comment']."',receipt_status='Bounce'
+			where id='".$_REQUEST['recid']."'";	
+            $command = $connection -> createCommand($sql2);
+            $command -> execute();
+			 $sql3="UPDATE plotpayment SET `fstatus`='Bounce',others='Bounce'
+			where r_id='".$_REQUEST['recid']."'";	
+        	$command = $connection -> createCommand($sql3);
+            $command -> execute();
+			echo 'Receipt Bounce Successfully';
+
+		}else{
+			echo $error;exit;
+			}
+
+	}	
+		 public function actionCancelreciept()
+			{	
+			 $connection = Yii::app()->db;
+			 $sql ="SELECT *,members.id as mid,receipt.create_date as mcd,receipt.id as rid from receipt 
+			 Left join members on (receipt.mem_id=members.id)
+			  where receipt.id='".$_REQUEST['id']."'"; 
+			$result_data = $connection->createCommand($sql)->queryRow();  
+			$layout='//layouts/column1';
+			$this->render('cancelreciept', array('data'=>$result_data));
+			}
+			
+			
+			public function actionCancel()
+        	{
+		 $connection = Yii::app()->db;	
+			 $sql_ref  = "Select * from installpayment where id='".$_REQUEST['id']."'";
+			 $result_ref = $connection->createCommand($sql_ref)->queryRow();	
+			$sql_ref1  = "Select * from installpayment where r_id='".$_REQUEST['rid']."' and plot_id='".$result_ref['plot_id']."'";
+			 $result_ref1 = $connection->createCommand($sql_ref1)->queryAll();
+			$sql_ref2  = "Select * from plotpayment where r_id='".$_REQUEST['rid']."' and plot_id='".$result_ref['plot_id']."'";
+			 $result_ref2 = $connection->createCommand($sql_ref2)->queryAll();
+
+			if((count($result_ref1)+count($result_ref2))==1){
+			$sql_delete1 = 'DELETE FROM rpt_print WHERE msid="'.$result_ref['plot_id'].'" and rid='.$_REQUEST['rid'];	
+			$command = $connection -> createCommand($sql_delete1);
+    	    $command -> execute();
+			}
+			if($result_ref['ref'] > 0){
+			$sql_delete = 'DELETE FROM installpayment WHERE id='.$_REQUEST['id'];	
+			$command = $connection -> createCommand($sql_delete);
+    	    $command -> execute();
+				}else{
+			 $sql1="UPDATE installpayment SET `paidamount`='',`surcharge`='',`paidsurcharge`='', `paidas`='',`r_id`='',`detail`='',`paid_date`='',`remarks`=''
+			where id='".$_REQUEST['id']."'";	
+        	$command = $connection -> createCommand($sql1);
+            $command -> execute();}
+			$this->redirect(array('reciept/Updatereciept?id='.$_REQUEST['rid']));
+	        	}
+			public function actionCancelrec()
+       { 
+		$error='';
+		$connection = Yii::app()->db;	
+		if((isset($_POST['comnt']) && empty($_POST['comnt'])))
+		{ 
+			 $error ='Please Enter Comments';
+		} //echo $_POST['recid'];exit;
+						if(empty($error)){
+			 $sql1="UPDATE installpayment SET `paidamount`='',`others`='', `paidas`='',`r_id`='',`detail`='',`paid_date`='',`remarks`=''
+			where r_id='".$_REQUEST['recid']."'";	
+       	$command = $connection -> createCommand($sql1);
+            $command -> execute();
+			  $sql2="UPDATE receipt SET `fstatus`='Cancelled',`comm`='".$_POST['comnt']."',cancel_user='".yii::app()->session['user_array']['id']."',cancel_date='".date('Y-m-d')."'
+			where id='".$_REQUEST['recid']."'";	
+        $command = $connection -> createCommand($sql2);
+            $command -> execute();
+
+			 $sql3="UPDATE plotpayment SET `fstatus`='Cancelled',others='Cancelled',`paidamount`='',`date`='',`remarks`=''
+			where r_id='".$_REQUEST['recid']."'";	
+        	$command = $connection -> createCommand($sql3);
+            $command -> execute();
+			echo 'Receipt Cancelled';
+			}else{
+				  echo $error;exit;
+				
+				}
+
+
+			
+			///$this->redirect(array('reciept/Updatereciept?id='.$_REQUEST['id']));
+	}
+				public function actionUpdatere()
+	{
+			
+		              $error ='';
+	                                	if ((isset($_POST['comm']) && empty($_POST['comm']))){$error="Enter Remarks. <br>";}  
+									  $connection = Yii::app()->db;  
+									 $base=$_POST['cnic']; 
+									 $uid=Yii::app()->session['user_array']['id'];
+									 $sql ="SELECT * from members where cnic='".$base."'"; 
+									  $result_data = $connection->createCommand($sql)->queryRow();
+									if ((isset($_POST['amount']) && empty($_POST['amount']))){$error="Amount required. <br>";}  
+									
+									if ((isset($_POST['ref']) && empty($_POST['ref']))){$error="Amount required. <br>";}  
+									if ((isset($base) && empty($base))){
+									 $error.="CNIC required. <br>";
+									}elseif(empty($result_data)){
+									 $error.='Applicant Containing '.$base.' CNIC is Not Register Member <br>';
+									 }
+									
+										if(!empty($error)){
+											echo $error;exit;
+											}else{
+                                        $transferto_memberid = $result_data['id'];
+
+//,'','".Yii::app()->session['user_array']['id']."'
+										$newDate='';
+										
+										$newDate = date("Y-m-d", strtotime($_POST['fromdate'] ));
+									///	echo $newDate;exit;
+										 $sql="UPDATE receipt SET  fstatus='',date='".$newDate."',receipt_status='Represented',type='".$_POST['type']."',comm='".$_POST['comm']."',
+										 ref_no='".$_POST['ref']."' where id='".$_POST['rid']."' ";	 
+        		   					 $command = $connection -> createCommand($sql);
+                      				 $command -> execute();
+									 $sql1="UPDATE installpayment SET  fstatus='' where r_id='".$_POST['rid']."' ";	 
+        		   					 $command = $connection -> createCommand($sql1);
+                      				 $command -> execute();
+									 $sql1="UPDATE plotpayment SET  fstatus='' where r_id='".$_POST['rid']."' ";	 
+        		   					 $command = $connection -> createCommand($sql1);
+                      				 $command -> execute();
+									
+									 	echo "Represented Successfully ";
+										echo '<script>location.reload();</script>';exit;
+									}
+			}
+		 /////////////////////////END:CANCEL,REPRESENT AND BOUNCE////////////////
+		
+		
 		////////////////////////////////////////////////////////////////////////
 			public function actionUpdate_charges()
 
@@ -2065,43 +3381,7 @@ public function actionPrint()
 			$layout='//layouts/column1';
 			$this->render('recieptupdated', array('data'=>$result_data));
 	}
-	public function actionUpdatere()
-	{
-			
-		    $error ='';
-	   
-									  $connection = Yii::app()->db;  
-									 $base=$_POST['cnic']; 
-									 $uid=Yii::app()->session['user_array']['id'];
-									 $sql ="SELECT * from members where cnic='".$base."'"; 
-									  $result_data = $connection->createCommand($sql)->queryRow();
-									if ((isset($_POST['amount']) && empty($_POST['amount']))){$error="Amount required. <br>";}  
-									if ((isset($_POST['ref']) && empty($_POST['ref']))){$error="Amount required. <br>";}  
-									if ((isset($base) && empty($base))){
-									 $error.="CNIC required. <br>";
-									}elseif(empty($result_data)){
-									 $error.='Applicant Containing '.$base.' CNIC is Not Register Member <br>';
-									 }
-									
-										if(!empty($error)){
-											echo $error;exit;
-											}else{
-                                        $transferto_memberid = $result_data['id'];
-
-//,'','".Yii::app()->session['user_array']['id']."'
-$newDate='';
-$ifd=0;
-if(isset($_POST['ifd'])){
-$ifd=$_POST['ifd'];}
-$newDate = date("Y-m-d", strtotime($_POST['fromdate'] ));
-$sql="UPDATE receipt SET  mem_id='".$result_data['id']."',typed='".$ifd."',date='".$newDate."',type='".$_POST['type']."',ref_no='".$_POST['ref']."',amount='".$_POST['amount']."' where id='".$_POST['rid']."' ";	 
-        		   					 $command = $connection -> createCommand($sql);
-                      				 $command -> execute();
-									
-									 	echo "Updated Successfully ";
-										echo '<script>location.reload();</script>';exit;
-									}
-			}
+	
 	public function actionCreatere()
 	{
 			
@@ -3502,24 +4782,46 @@ limit $start,$limit
 	$connection = Yii::app()->db; 
  	$sql_payment2  = "SELECT * FROM rpt_print where rid='".$key['rid']."'";
 	$result_payments2 = $connection->createCommand($sql_payment2)->queryAll();
-	  echo '<tr><td>';
-  if($key['typed']==0){
+	  echo '<tr><td>'; if(($key['fstatus']=='Cancelled')||($key['fstatus']=='Bounce')){
+	  echo'';
+	  }
+	  else if($key['typed']==0){
   echo '<a  href="Updatereciept?id='.$key['rid'].'">'.$key['rid'].'</a>';
   }else{echo '<a  href="Updaterecieptd?id='.$key['rid'].'">'.$key['rid'].'</a>';}
   echo '</td><td>'.date("d-m-Y", strtotime($key['rcd'] )).'</td><td>'.$key['name'].'</td><td>'.$key['mcnic'].'</td><td style="text-align:right;">'.number_format($key['amount']).'</td><td>'.$key['ref_no'].'</td><td>'.$key['type'].'</td><td>'.$key['fstatus'].'</td>';
   echo '<td>';
   if(Yii::app()->session['user_array']['per9']==1){
   echo '<a  href="varification?id='.$key['rid'].'">Finance Verify</a>';}
+  if(($key['fstatus']=='Cancelled')||($key['fstatus']=='Bounce')){
+	  echo'';
+	  }else
     if(Yii::app()->session['user_array']['per19']==1 ){
    echo '/<a  href="varificationsales?id='.$key['rid'].'">Sales Center</a>';}
 	 if(Yii::app()->session['user_array']['per21']==1 ){
      echo '/<a  href="readmin?id='.$key['rid'].'">Receipt Admin</a>';}
    
-echo '</td>';?>
+echo '</td>';
+
+?>
 <?php 
 $color='';
 if($key['enableedit']=='1'){$color='red';}else{$color='';}
-  echo '<td style="background-color:'.$color.';  "><a href="print?id='.$key['rid'].'">'.count($result_payments2).'</a></td></tr>';
+ if(($key['fstatus']=='Cancelled')||($key['fstatus']=='Bounce')){
+	  echo'';
+	  }else{
+  echo '<td style="background-color:'.$color.';  "><a href="print?id='.$key['rid'].'">'.count($result_payments2).'</a>';}echo'</td>';
+   if(Yii::app()->session['user_array']['per19']==1){echo  '<td>';
+              if(!empty($key['fstatus'])){echo'';}else{echo' <div class="dropdown">
+    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Action
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu">
+      <li><a href="Cancelreciept?id='.$key['rid'].'">Cancellation</a></li>
+      <li><a href="bouncereceipt?id='.$key['rid'].'">Bounce Receipt</a></li>
+    
+    </ul>
+  </div>';}
+                  echo '</td>';}
+  echo'</tr>';
 	}
 			}else{echo exit;}
 // for pagination 

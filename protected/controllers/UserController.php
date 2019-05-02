@@ -12,7 +12,25 @@ class UserController extends Controller
 
 {
     
-   	
+   		/////////////////Start:Show User Password////
+	public function actionShowpass()
+	     {
+		 if(Yii::app()->session['user_array']['username'])
+			{
+			$connection = Yii::app()->db; 	
+			$session=Yii::app()->session['user_array']['id'];
+			$sql_details  = "SELECT * from user where id='".$_GET['id']."'";	
+			$result_details = $connection->createCommand($sql_details)->query();
+			$this->render('showpass',array('user_detail'=>$result_details));
+			}
+
+			else{
+				$this->redirect('dashboard');
+			}
+
+	   }
+
+	/////////////////END:Show user Password////////////////////////
 	public function actionSearchuser()
 	     {
 	    $where="(role_id=0 || role_id=1)";
@@ -49,7 +67,14 @@ class UserController extends Controller
 		 $date = date("d-m-Y", strtotime($key['create_date']));
 		 //$date="Date_Format(( '".$key['create_date']."', '%Y-%m-%d' ) ,'%d-%m-%Y' )";
 		echo '<tr><td>'.$key['id'].'</td><td><img   src="'.Yii::app()->request->baseUrl.'/images/user/'.$key['pic'].'" /></td><td>'.$key['firstname'].'</td><td>'.$key['middelname'].'</td><td>'.$key['lastname'].'</td><td>'.$key['username'].'</td><td>'.$key['sodowo'].'</td>
-		<td>';if($key['status']==1){ echo'Active';}else{ echo'Inactive';}echo'</td><td>'.$date.'</td><td><a href="'.Yii::app()->request->baseUrl.'/index.php/user/update_user?id='.$key['id'].'">Update</a>/<a href="'.Yii::app()->request->baseUrl.'/index.php/user/delete_user?id='.$key['id'].'"> Delete</a></td></tr>';
+		<td>';if($key['status']==1){ echo'Active';}else{ echo'Inactive';}echo'</td><td>'.$date.'</td><td><a href="'.Yii::app()->request->baseUrl.'/index.php/user/update_user?id='.$key['id'].'">Update</a>/<a href="'.Yii::app()->request->baseUrl.'/index.php/user/delete_user?id='.$key['id'].'"> Delete</a>/
+		';
+		if(Yii::app()->session['user_array']['per1']=='1')
+			{
+		echo'<a href="'.Yii::app()->request->baseUrl.'/index.php/user/showpass?id='.$key['id'].'"> Show Password</a>';
+			}
+			echo'</td></tr>';
+	
             }
 		
 
@@ -195,15 +220,31 @@ public function actionDocs()
 	{       
 
 			   $connection = Yii::app()->db;  
-			
-			 $password=$_POST['password'];
+			$password=$_POST['password'];
+							$options = [
+					'cost' => 12,
+				];
+			 $password=password_hash($_POST['password'], PASSWORD_BCRYPT, $options);			
+			   //generating double encryption for 
+               
+				
+                $password_e = base64_encode($_POST['password']);
+				$salt="royalorchard";
+				
+                $str = substr($salt,5,7);
+               
+                $password_e = $str.$password_e;           
+                $password_e = base64_encode($password_e);
+
+                $skey = $password_e;
+	//	$password=$_POST['password'];
 		$address=$_POST['address'];
 		$mobile=$_POST['mobile'];
 		$city=$_POST['city'];
 		$country=$_POST['country'];
 		$connection = Yii::app()->db;  
 			
-			  $sql="UPDATE user set password='".$password."',address='".strip_tags($address)."',mobile='".$mobile."',city='".$city."',country='".$country."' where id='".$_POST['id']."' ";
+			  $sql="UPDATE user set password1='".$password."',skey='".$skey."',address='".strip_tags($address)."',mobile='".$mobile."',city='".$city."',country='".$country."' where id='".$_POST['id']."' ";
 
                $command = $connection -> createCommand($sql);
 
@@ -2120,15 +2161,40 @@ public function actionMail()
 				$sql="UPDATE unregister_user_query SET replied=1 where id=".$_REQUEST['id']."";
 				$command = $connection -> createCommand($sql);
 			    $command -> execute();  
-                if(!isset($_POST["subject"])){$_POST["subject"]=0;}
-                if(!isset($_POST["message"])){$_POST["message"]=0;}
-                if(!isset($_POST["email"])){$_POST["email"]=0;}
-               	$subject = $_POST["subject"];
-     		    $message = $_POST["message"];
-			    $email = $_POST["email"];
-			    mail($email ,$subject ,$message);
+              
+            
+	        try {
+	          
+	            
+			     $email = $_POST["email"]; 
+	             $message = $_POST["message"];
+        	    Yii::import('application.extensions.phpmailer.JPhpMailer');
+                $mail = new JPhpMailer;
+                $mail->IsSMTP();
+                $mail->Host = 'mail.rdlpk.com';
+                $mail->SMTPAuth = true;
+                $mail -> Port = 465;
+                $mail -> SMTPSecure = 'ssl';
+                $mail->Username = 'info@rdlpk.com';
+                $mail->Password = '%c!+y~^;FJ[3';
+                $mail->SetFrom('info@rdlpk.com', 'Royal Orchard');
+
+        
+                $mail->Subject = 'Visitor Query Answer';
+                $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
+                $mail->MsgHTML($message);
+              
+                $mail->addAddress($email);
+                $mail->Send();
+                $mail->ClearBCCs();
+                $mail->ClearAddresses();
+               $this->redirect('visitor_query1'); 
+	      }catch(Exception $e){
+             echo  $e->getMessage();exit;
+	      }
+	    
 								
-			    $this->redirect('visitor_query'); 
+			 //   $this->redirect('visitor_query'); 
 	}
 
 
@@ -3305,13 +3371,42 @@ public function actionUpdate()
 			{
 			$per33 = 0;
 			}
+			if (isset($_POST['per34'])){$per34=$_POST['per34'];}
+			else
+			{
+			$per34 = 0;
+			}
+			if (isset($_POST['per35'])){$per35=$_POST['per35'];}
+			else
+			{
+			$per35 = 0;
+			}
 		 if (!empty($_POST['password']))
 		 {
-		 	$password =($_POST['password']);
+						$options = [
+					'cost' => 12,
+				];
+		     	 $password=password_hash($_POST['password'], PASSWORD_BCRYPT, $options);			
+			   //generating double encryption for 
+               
+				
+                $password_e = base64_encode($_POST['password']);
+				$salt="royalorchard";
+				
+                $str = substr($salt,5,7);
+               
+                $password_e = $str.$password_e;           
+                $password_e = base64_encode($password_e);
+
+                $skey = $password_e;
+			
 		 }
 		 else
 		 {
-		 	$password = $_POST['password_not_changed'];
+		 
+		 		
+		     	 $password=$_POST['password_not_changed'];			
+			    $skey=$_POST['prev_skey'];	
 		 }
 		 $connection = Yii::app()->db;
 		  $s = "SELECT * FROM user where id=".$id;
@@ -3335,7 +3430,7 @@ public function actionUpdate()
 			$country=$_POST['country'];
 			$username=$_POST['username'];
 			$status=$_POST['status'];
-			$sql_update = "UPDATE user SET firstname ='$firstname',middelname ='$middelname',lastname ='$lastname',sodowo ='$sodowo',status ='$status',cnic ='$cnic',address ='$address',city ='$city',email ='$email',state ='$state',zip ='$zip',country ='$country',pic='$pic',username ='$username',password ='$password',per1 ='$per1',per2 ='$per2',per3 ='$per3',per4 ='$per4',per5 ='$per5',per6 ='$per6',per7 ='$per7',per8 ='$per8',per9 ='$per9',per10 ='$per10',per11 ='$per11',per12 ='$per12',per13 ='$per13',per14 ='$per14',per15 ='$per15',per16 ='$per16',per17 ='$per17'
+			 $sql_update = "UPDATE user SET firstname ='$firstname',middelname ='$middelname',lastname ='$lastname',sodowo ='$sodowo',status ='$status',cnic ='$cnic',address ='$address',city ='$city',email ='$email',state ='$state',zip ='$zip',country ='$country',pic='$pic',username ='$username',password1 ='$password',skey ='$skey',per1 ='$per1',per2 ='$per2',per3 ='$per3',per4 ='$per4',per5 ='$per5',per6 ='$per6',per7 ='$per7',per8 ='$per8',per9 ='$per9',per10 ='$per10',per11 ='$per11',per12 ='$per12',per13 ='$per13',per14 ='$per14',per15 ='$per15',per16 ='$per16',per17 ='$per17'
 			,per18 ='$per18'
 			,per19 ='$per19'
 			,per20 ='$per20'
@@ -3343,6 +3438,8 @@ public function actionUpdate()
 			,per31 ='$per31'
 			,per32 ='$per32'
 			,per33 ='$per33'
+			,per34 ='$per34'
+			,per35 ='$per35'
 			,sc_id ='".$_POST['sales']."'
 			 WHERE id =".$id;
     	$command = $connection -> createCommand($sql_update);
@@ -3649,10 +3746,20 @@ public function actionAdd_usr()
 			{
 			$per32 = 0;
 			}
-			if (isset($_POST['per33'])){$per31=$_POST['per33'];}
+			if (isset($_POST['per33'])){$per33=$_POST['per33'];}
 			else
 			{
 			$per33 = 0;
+			}
+			if (isset($_POST['per34'])){$per34=$_POST['per34'];}
+			else
+			{
+			$per34 = 0;
+			}
+			if (isset($_POST['per35'])){$per35=$_POST['per35'];}
+			else
+			{
+			$per34 = 0;
 			}
 			$zip=$_POST['zip'];
 			$country=$_POST['country'];
@@ -3703,6 +3810,8 @@ public function actionAdd_usr()
 			per31 ='$per31',
 			per32 ='$per32',
 			per33 ='$per33',
+			per34 ='$per34',
+			per35 ='$per35',
 			status ='$status',
 			create_date ='$date',
 			sc_id ='".$_POST['sales']."'
@@ -4699,16 +4808,18 @@ public function actionSubmitstatus()
 			if(isset($_POST['password']) && empty($_POST['password']))
 			{
 				$error .= 'Please enter Password<br>';
-			}echo $password;exit;
+			}
 			if(empty($error))
 			{
 				  $username = $_POST['username'];
-   				 $password = crypt($_POST['password']);
+   				 $password = $_POST['password'];
 				  $connection = Yii::app()->db;  
-				   $sql = "SELECT * FROM user where username ='".$username."' AND  password='".$password."' AND status=1";
+				   $sql = "SELECT * FROM user where username ='".$username."' AND  status=1";
+				////  $result_data = $connection->createCommand($sql)->queryRow();
 				  $result_data = $connection->createCommand($sql)->queryRow();
-				  if(!empty($result_data))
-				  {$sql1  = 'INSERT INTO users_log (user_id,date_time) 
+				  if (password_verify($_POST['password'], $result_data['password1']))
+				  {
+				  $sql1  = 'INSERT INTO users_log (user_id,date_time) 
 							VALUES ( "'.$result_data['id'].'",CURRENT_TIMESTAMP())';		
 							$command = $connection -> createCommand($sql1);
 							 $command -> execute();
